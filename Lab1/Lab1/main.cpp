@@ -21,6 +21,7 @@ int main()
 				nabywca->sprzedaz();
 
 			std::cout << "Dziedziczy z nabywca.\n";
+
 		}
 
 		Dostawca *dostawca = dynamic_cast<Dostawca*>(firma);
