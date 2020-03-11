@@ -22,5 +22,12 @@ void Bank::ZaplacKarta(double kwota)
 
 void Bank::WezKredyt(double kwota)
 {
-
+	if (kwota <= zdolnoscKredytowa)
+	{
+		konto += kwota;
+		zdolnoscKredytowa -= kwota;
+	}
+	else 
+		throw std::logic_error("Blad! Nie masz zdolnosci kredytowej.");
 }
+
