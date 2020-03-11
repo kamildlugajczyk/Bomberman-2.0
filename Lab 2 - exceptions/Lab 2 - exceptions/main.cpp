@@ -11,7 +11,7 @@ int main()
 	{
 		try 
 		{
-			std::cout << "Transakcja karta \n" << std::endl;
+			std::cout << "Transakcja karta. \n" << std::endl;
 			bank.ZaplacKarta(50);
 		}
 		catch (std::runtime_error & error) 
