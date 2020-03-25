@@ -13,8 +13,10 @@ double operacja_na_liczbach(double x, double y)
 {
 	return x - y;
 }
+
 //----------------------------
 // zadanie 2
+
 template <typename Type>
 class Tlista
 {
@@ -29,7 +31,7 @@ private:
 public:
 	Tlista() : pHead(nullptr) {};
 
-	void InsertBegining(Type x)
+	void InsertBeginning(Type x)
 	{
 		if (!pHead)
 		{
@@ -61,12 +63,50 @@ public:
 				std::cout << pHelper->data << ", ";
 				pHelper = pHelper->pNext;
 			}
+			std::cout << std::endl;
 		}
 	}
 //----------------------------
 // zadanie 3
+template <typename Type>
+class TPrzechowalnia {
+	Type data;
 
+public:
+	TPrzechowalnia()
+	{
+		Clear();
+	}
 
+	void Clear()
+	{
+		data = 0;
+	}
+
+	void Add(Type newElement)
+	{
+		data += newElement;
+	}
+
+	Type Show()
+	{
+		return data;
+	}
+};
+};
+
+template<>
+class TPrzechowalnia<char> {
+	std::string text;
+public:
+	void dodaj(char nowy)
+	{
+		text += nowy;
+	}
+	std::string wypisz()
+	{
+		return text;
+	};
 };
 int main()
 {
@@ -87,14 +127,24 @@ int main()
 	std::cout << "Wynik dla typu double: " << operacja_na_liczbach(firstDouble, secondDouble) << std::endl;
 	//----------------------------
 	// testowanie zadania 2
-	Tlista <double> linkedList;
+	Tlista <int> linkedList;
 
 	for (int i = 0; i < 20; i++)
-		linkedList.InsertBegining(i);
+		linkedList.InsertBeginning(i);
 
 	linkedList.Show();
+
+	Tlista <double> linkedListDouble;
+
+	linkedListDouble.InsertBeginning(4.25);
+	linkedListDouble.InsertBeginning(2.99);
+	linkedListDouble.InsertBeginning(10.23);
+
+	linkedListDouble.Show();
 	//----------------------------
 	// testowanie zadania 3
+
+
 
 	std::getchar();
 	return 0;
