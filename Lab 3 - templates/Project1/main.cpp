@@ -15,8 +15,39 @@ double operacja_na_liczbach(double x, double y)
 }
 //----------------------------
 // zadanie 2
+template <typename Type>
+class Tlista
+{
+private:
+	struct element
+	{
+		Type data;
+		element * pNext;
+	};
+	element * pHead;
 
+public:
+	Tlista() : pHead(nullptr) {};
 
+	void InsertBegining(Type x)
+	{
+		if (pHead == nullptr)
+		{
+			element * newElement = new element;
+			newElement->data = x;
+			newElement->pNext = nullptr;
+			pHead = newElement;
+		}
+		else
+		{
+			element * newElement = new element;
+			newElement->data = x;
+			newElement->pNext = pHead;
+			pHead = newElement;
+		}
+	}
+
+};
 int main()
 {
 	// testowanie zadania 1
