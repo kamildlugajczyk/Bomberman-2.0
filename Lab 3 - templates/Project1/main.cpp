@@ -31,7 +31,7 @@ public:
 
 	void InsertBegining(Type x)
 	{
-		if (pHead == nullptr)
+		if (!pHead)
 		{
 			element * newElement = new element;
 			newElement->data = x;
@@ -46,6 +46,26 @@ public:
 			pHead = newElement;
 		}
 	}
+
+	void Show()
+	{
+		if (!pHead)
+		{
+			std::cout << "Lista nie zawiera zadnych elementow!" << std::endl;
+		}
+		else
+		{
+			element * pHelper = pHead;
+			while (pHelper)
+			{
+				std::cout << pHelper->data << ", ";
+				pHelper = pHelper->pNext;
+			}
+		}
+	}
+//----------------------------
+// zadanie 3
+
 
 };
 int main()
@@ -67,8 +87,14 @@ int main()
 	std::cout << "Wynik dla typu double: " << operacja_na_liczbach(firstDouble, secondDouble) << std::endl;
 	//----------------------------
 	// testowanie zadania 2
+	Tlista <double> linkedList;
 
+	for (int i = 0; i < 20; i++)
+		linkedList.InsertBegining(i);
 
+	linkedList.Show();
+	//----------------------------
+	// testowanie zadania 3
 
 	std::getchar();
 	return 0;
