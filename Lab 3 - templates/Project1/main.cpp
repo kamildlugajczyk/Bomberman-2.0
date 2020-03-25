@@ -66,10 +66,12 @@ public:
 			std::cout << std::endl;
 		}
 	}
+};
 //----------------------------
 // zadanie 3
 template <typename Type>
-class TPrzechowalnia {
+class TPrzechowalnia 
+{
 	Type data;
 
 public:
@@ -93,21 +95,20 @@ public:
 		return data;
 	}
 };
-};
 
-template<>
-class TPrzechowalnia<char> {
-	std::string text;
-public:
-	void dodaj(char nowy)
-	{
-		text += nowy;
-	}
-	std::string wypisz()
-	{
-		return text;
-	};
-};
+//template<>
+//class TPrzechowalnia<char> {
+//	std::string text;
+//public:
+//	void dodaj(char nowy)
+//	{
+//		text += nowy;
+//	}
+//	std::string wypisz()
+//	{
+//		return text;
+//	};
+//};
 int main()
 {
 	// testowanie zadania 1
@@ -144,7 +145,12 @@ int main()
 	//----------------------------
 	// testowanie zadania 3
 
-
+	TPrzechowalnia<float> store;
+	std::cout << store.Show() << std::endl;
+	store.Add(12.99);
+	std::cout << store.Show() << std::endl;
+	store.Clear();
+	std::cout << store.Show() << std::endl;
 
 	std::getchar();
 	return 0;
