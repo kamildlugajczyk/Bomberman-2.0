@@ -96,19 +96,23 @@ public:
 	}
 };
 
-//template<>
-//class TPrzechowalnia<char> {
-//	std::string text;
-//public:
-//	void dodaj(char nowy)
-//	{
-//		text += nowy;
-//	}
-//	std::string wypisz()
-//	{
-//		return text;
-//	};
-//};
+template<>
+class TPrzechowalnia<char> 
+{
+	std::string text;
+public:
+	void Add(char newElement)
+	{
+		text += newElement;
+	}
+
+	std::string Show()
+	{
+		return text;
+	};
+};
+
+
 int main()
 {
 	// testowanie zadania 1
@@ -145,12 +149,16 @@ int main()
 	//----------------------------
 	// testowanie zadania 3
 
-	TPrzechowalnia<float> store;
-	std::cout << store.Show() << std::endl;
-	store.Add(12.99);
-	std::cout << store.Show() << std::endl;
-	store.Clear();
-	std::cout << store.Show() << std::endl;
+	TPrzechowalnia<float> storeFloat;
+	std::cout << storeFloat.Show() << std::endl;
+	storeFloat.Add(12.99);
+	std::cout << storeFloat.Show() << std::endl;
+	storeFloat.Clear();
+	std::cout << storeFloat.Show() << std::endl;
+
+	TPrzechowalnia<char> storeChar;
+	storeChar.Add('t');
+	std::cout << storeChar.Show() << std::endl;
 
 	std::getchar();
 	return 0;
