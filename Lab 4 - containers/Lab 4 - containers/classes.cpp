@@ -25,3 +25,9 @@ float student_map::NoteAverage(std::string name)
 	else
 		std::cout << "Brak takiego studenta w bazie!" << std::endl;
 }
+
+void student_map::ListOutput()
+{
+	for (const auto & element : map)
+		std::cout << element.first. << ' ' << element.second << '\n';
+}

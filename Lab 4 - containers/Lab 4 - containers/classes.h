@@ -12,4 +12,6 @@ public:
 	void NoteInput(std::string name, float weight, int node);
 
 	float NoteAverage(std::string name);
+
+	void ListOutput();
 };

@@ -23,6 +23,16 @@ std::ostream& operator<<(std::ostream & stream, const std::multimap<float, int> 
 	return stream;
 }
 
+std::ostream& operator<<(std::ostream& stream, const std::map<std::string, std::multimap<float, int>> & map)
+{
+	for (auto it = map.cbegin(); it != map.cend(); ++it)
+	{
+		std::cout << it->first << " " << it->second;
+	}
+
+	return stream;
+}
+
 int main()
 {
 	std::list<std::string> students = { "Johnson", "Newman", "Robin", "Oldman", "Parrot" };
@@ -35,13 +45,15 @@ int main()
 
 	student_map studentMap(map);
 	
-	studentMap.NoteInput("Johnson", 4.5, 2);
-	studentMap.NoteInput("Johnson", 4.5, 2);
+	studentMap.NoteInput("Johnson", 3, 2);
+	studentMap.NoteInput("Johnson", 5, 2);
 	studentMap.NoteInput("NewMan", 4.0, 3);
-	studentMap.NoteInput("Johnson", 2.37, 2);
-	studentMap.NoteInput("Johnson", 5, 1);
+	studentMap.NoteInput("Robin", 2.37, 2);
+	studentMap.NoteInput("Oldman", 5, 1);
 
-	std::cout << studentMap.NoteAverage("Johnson");
+	std::cout << "Srednia: " << studentMap.NoteAverage("Johnson") << std::endl;
+
+	std::cout << std::endl << map;
 
 	std::getchar();
 	return 0;
