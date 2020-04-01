@@ -36,9 +36,12 @@ int main()
 	student_map studentMap(map);
 	
 	studentMap.NoteInput("Johnson", 4.5, 2);
+	studentMap.NoteInput("Johnson", 4.5, 2);
 	studentMap.NoteInput("NewMan", 4.0, 3);
 	studentMap.NoteInput("Johnson", 2.37, 2);
 	studentMap.NoteInput("Johnson", 5, 1);
+
+	std::cout << studentMap.NoteAverage("Johnson");
 
 	std::getchar();
 	return 0;
