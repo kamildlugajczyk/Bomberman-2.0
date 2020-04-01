@@ -14,4 +14,6 @@ public:
 	float NoteAverage(std::string name);
 
 	void ListOutput();
+
+	void assignStudent(std::string name, std::unordered_multimap<float, int> u_map);
 };

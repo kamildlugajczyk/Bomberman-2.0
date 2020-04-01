@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <unordered_set>
+#include <unordered_map>
 #include <map>
 #include <cstdlib>
 
@@ -20,6 +22,13 @@ std::ostream& operator<<(std::ostream & stream, const std::multimap<float, int> 
 	for (const auto& element : multimap)
 		stream << element.first << ' : ' << element.second << std::endl;
 
+	return stream;
+}
+
+std::ostream& operator<<(std::ostream& stream, const std::map<std::string, std::multimap<float, int>>& multiMap)
+{
+	for (const auto& element : multiMap)
+		stream << element.first << '\n' << element.second << '\n';
 	return stream;
 }
 
@@ -44,6 +53,9 @@ int main()
 	std::cout << "Srednia: " << studentMap.NoteAverage("Johnson") << std::endl;
 
 	studentMap.ListOutput();
+
+	std::unordered_multimap<float, int> temp = { {2.3, 2}, {4.2, 4}, {3.75, 1} };
+	studentMap.assignStudent("Janoski", temp);
 
 	std::getchar();
 	return 0;

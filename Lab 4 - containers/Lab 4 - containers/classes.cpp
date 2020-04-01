@@ -1,4 +1,6 @@
 #include <iostream>
+#include <unordered_set>
+#include <unordered_map>
 
 #include "classes.h"
 
@@ -31,3 +33,12 @@ void student_map::ListOutput()
 	for (const auto & element : map)
 		std::cout << element.first. << ' ' << element.second << '\n';
 }
+
+void student_map::assignStudent(std::string name, std::unordered_multimap<float, int> u_map)
+{
+	for (auto& x : u_map)
+		map[name].insert(x);
+}
+
+
+
