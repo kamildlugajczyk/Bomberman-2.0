@@ -28,7 +28,7 @@ std::ostream& operator<<(std::ostream & stream, const std::multimap<float, int> 
 std::ostream& operator<<(std::ostream& stream, const std::map<std::string, std::multimap<float, int>>& multiMap)
 {
 	for (const auto& element : multiMap)
-		stream << element.first << '\n' << element.second << '\n';
+		stream << element.first << ' ' << element.second << '\n';
 	return stream;
 }
 
@@ -55,7 +55,9 @@ int main()
 	studentMap.ListOutput();
 
 	std::unordered_multimap<float, int> temp = { {2.3, 2}, {4.2, 4}, {3.75, 1} };
-	studentMap.assignStudent("Janoski", temp);
+	studentMap.AssignStudent("Janoski", temp);
+
+	std::unordered_set<float> unorderedSet = studentMap.AverageSet();
 
 	std::getchar();
 	return 0;

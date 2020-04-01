@@ -15,5 +15,7 @@ public:
 
 	void ListOutput();
 
-	void assignStudent(std::string name, std::unordered_multimap<float, int> u_map);
+	void AssignStudent(std::string name, std::unordered_multimap<float, int> u_map);
+
+	std::unordered_set<float> AverageSet();
 };

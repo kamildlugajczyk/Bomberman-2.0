@@ -34,10 +34,20 @@ void student_map::ListOutput()
 		std::cout << element.first. << ' ' << element.second << '\n';
 }
 
-void student_map::assignStudent(std::string name, std::unordered_multimap<float, int> u_map)
+void student_map::AssignStudent(std::string name, std::unordered_multimap<float, int> u_map)
 {
 	for (auto& x : u_map)
 		map[name].insert(x);
+}
+
+std::unordered_set<float> student_map::AverageSet()
+{
+	std::unordered_set<float> temp;
+
+	for (auto & element : map)
+		temp.insert(this->NoteAverage(element.first));
+
+	return temp;
 }
 
 
