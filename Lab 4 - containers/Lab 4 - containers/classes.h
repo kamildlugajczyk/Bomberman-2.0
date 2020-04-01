@@ -3,11 +3,13 @@
 
 class student_map
 {
-	std::map<std::string, std::multimap<float, int>> studentMap;
+	std::map<std::string, std::multimap<float, int>> map;
 
 public:
 	student_map(std::map<std::string, std::multimap<float, int>> s)
-		: studentMap(s) {};
+		: map(s) {};
+
+	void NoteInput(std::string name, float weight, int node);
 
 
 };

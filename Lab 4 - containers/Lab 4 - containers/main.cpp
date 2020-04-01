@@ -1,13 +1,10 @@
 #include <iostream>
-#include <vector>
 #include <string>
 #include <list>
-#include <set>
 #include <map>
-#include <unordered_set>
-#include <unordered_map>
 #include <cstdlib>
-#include <ctime>
+
+#include "classes.h"
 
 
 std::ostream& operator<<(std::ostream & stream, const std::list<std::string> & list)
@@ -21,22 +18,27 @@ std::ostream& operator<<(std::ostream & stream, const std::list<std::string> & l
 std::ostream& operator<<(std::ostream & stream, const std::multimap<float, int> & multimap)
 {
 	for (const auto& element : multimap)
-		stream << element.first << ' ' << element.second << std::endl;
+		stream << element.first << ' : ' << element.second << std::endl;
 
 	return stream;
 }
 
 int main()
 {
-	std::list<std::string> workers = { "Johnson", "Newman", "Robin", "Oldman", "Parrot" };
-	std::multimap<float, int> map = { {2.0, 1}, {3.99, 4} };
+	std::list<std::string> students = { "Johnson", "Newman", "Robin", "Oldman", "Parrot" };
+	std::multimap<float, int> multiMap = { {2.0, 1}, {3.99, 4} };
 
-	std::cout << workers;
-	std::cout << map;
+	std::cout << students;
+	std::cout << multiMap;
 
+	std::map<std::string, std::multimap<float, int>> map;
 
+	student_map studentMap(map);
 	
-
+	studentMap.NoteInput("Johnson", 4.5, 2);
+	studentMap.NoteInput("NewMan", 4.0, 3);
+	studentMap.NoteInput("Johnson", 2.37, 2);
+	studentMap.NoteInput("Johnson", 5, 1);
 
 	std::getchar();
 	return 0;
