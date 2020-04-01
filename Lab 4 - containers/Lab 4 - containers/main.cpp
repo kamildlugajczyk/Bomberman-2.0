@@ -21,7 +21,7 @@ std::ostream& operator<<(std::ostream & stream, const std::list<std::string> & l
 std::ostream& operator<<(std::ostream & stream, const std::multimap<float, int> & multimap)
 {
 	for (const auto& element : multimap)
-		stream << element.second << ' ' << element.first << std::endl;
+		stream << element.first << ' ' << element.second << std::endl;
 
 	return stream;
 }
@@ -29,9 +29,10 @@ std::ostream& operator<<(std::ostream & stream, const std::multimap<float, int> 
 int main()
 {
 	std::list<std::string> workers = { "Johnson", "Newman", "Robin", "Oldman", "Parrot" };
-	//std::map<std::string, std::multimap<int, float>> map = { {1, 2.0}, {4, 3.99} };
+	std::multimap<float, int> map = { {2.0, 1}, {3.99, 4} };
 
 	std::cout << workers;
+	std::cout << map;
 
 
 	
