@@ -124,7 +124,6 @@ void Player::GoLeft(const sf::Time & deltaTime, Map & map)
 }
 
 void Player::GoRight(const sf::Time & deltaTime, Map & map)
-
 {
 	if (canGoRight)
 	{
@@ -169,7 +168,7 @@ void Player::CheckForCollisions(const sf::Time & deltaTime, Map & map)
 	float leftPlayerEdge = this->GetCollisionBox().left - collisionBox.width / 2;
 	float rightPlayerEdge = this->GetCollisionBox().left + collisionBox.width / 2;
 	float topPlayerEdge = this->GetCollisionBox().top - collisionBox.height / 2;
-	float bottomPlayerEdge = this->GetCollisionBox().top + collisionBox.height / 2;
+	float bottomPlayerEdge = this->GetCollisionBox().top  + collisionBox.height / 2;
 
 	sf::FloatRect playerCheck(sf::Vector2f(leftPlayerEdge / 64, topPlayerEdge / 64), sf::Vector2f(rightPlayerEdge / 64, bottomPlayerEdge / 64));
 
@@ -180,49 +179,45 @@ void Player::CheckForCollisions(const sf::Time & deltaTime, Map & map)
 	}
 
 	//kolizje z lewej
-	if (map.blocks[(int)(topPlayerEdge / 64)][(int)((leftPlayerEdge - 1) / 64)]->type == solidBlock
-		|| map.blocks[(int)(topPlayerEdge / 64)][(int)((leftPlayerEdge - 1) / 64)]->type == breakableBlock
-		|| map.blocks[(int)(bottomPlayerEdge / 64)][(int)((leftPlayerEdge - 1) / 64)]->type == solidBlock
-		|| map.blocks[(int)(bottomPlayerEdge / 64)][(int)((leftPlayerEdge - 1) / 64)]->type == breakableBlock)
+	if (map.blocks[(int)((topPlayerEdge + 5) / 64)][(int)((leftPlayerEdge - 1) / 64)]->type == solidBlock
+		|| map.blocks[(int)((topPlayerEdge + 5) / 64)][(int)((leftPlayerEdge - 1) / 64)]->type == breakableBlock
+		|| map.blocks[(int)((bottomPlayerEdge - 5) / 64)][(int)((leftPlayerEdge - 1) / 64)]->type == solidBlock
+		|| map.blocks[(int)((bottomPlayerEdge - 5) / 64)][(int)((leftPlayerEdge - 1) / 64)]->type == breakableBlock)
 	{
 		this->ForbidGoingLeft();
-		position.x += 1;
 	}
 	else
 		this->AllowGoingLeft();
 	
 	// kolizje z prawej
-	if (map.blocks[(int)(topPlayerEdge / 64)][(int)((rightPlayerEdge + 1) / 64)]->type == solidBlock
-		|| map.blocks[(int)(topPlayerEdge / 64)][(int)((rightPlayerEdge + 1) / 64)]->type == breakableBlock
-		|| map.blocks[(int)(bottomPlayerEdge / 64)][(int)((rightPlayerEdge + 1) / 64)]->type == solidBlock
-		|| map.blocks[(int)(bottomPlayerEdge / 64)][(int)((rightPlayerEdge + 1) / 64)]->type == breakableBlock)
+	if (map.blocks[(int)((topPlayerEdge + 5) / 64)][(int)((rightPlayerEdge + 1) / 64)]->type == solidBlock
+		|| map.blocks[(int)((topPlayerEdge + 5) / 64)][(int)((rightPlayerEdge + 1) / 64)]->type == breakableBlock
+		|| map.blocks[(int)((bottomPlayerEdge - 5) / 64)][(int)((rightPlayerEdge + 1) / 64)]->type == solidBlock
+		|| map.blocks[(int)((bottomPlayerEdge - 5) / 64)][(int)((rightPlayerEdge + 1) / 64)]->type == breakableBlock)
 	{
 		this->ForbidGoingRight();
-		position.x -= 1;
 	}
 	else
 		this->AllowGoingRight();
 
 	// kolizje z gora
-	if (map.blocks[(int)((topPlayerEdge - 1) / 64)][(int)(leftPlayerEdge / 64)]->type == solidBlock
-		|| map.blocks[(int)((topPlayerEdge - 1) / 64)][(int)(leftPlayerEdge / 64)]->type == breakableBlock
-		|| map.blocks[(int)((topPlayerEdge - 1) / 64)][(int)(rightPlayerEdge / 64)]->type == solidBlock
-		|| map.blocks[(int)((topPlayerEdge - 1) / 64)][(int)(rightPlayerEdge / 64)]->type == breakableBlock)
+	if (map.blocks[(int)((topPlayerEdge - 1) / 64)][(int)((leftPlayerEdge + 5) / 64)]->type == solidBlock
+		|| map.blocks[(int)((topPlayerEdge - 1) / 64)][(int)((leftPlayerEdge + 5) / 64)]->type == breakableBlock
+		|| map.blocks[(int)((topPlayerEdge - 1) / 64)][(int)((rightPlayerEdge - 5) / 64)]->type == solidBlock
+		|| map.blocks[(int)((topPlayerEdge - 1) / 64)][(int)((rightPlayerEdge - 5) / 64)]->type == breakableBlock)
 	{
 		this->ForbidGoingUp();
-		position.y += 1;
 	}
 	else
 		this->AllowGoingUp();
 
 	// kolizje z dolem
-	if (map.blocks[(int)((bottomPlayerEdge + 1) / 64)][(int)(leftPlayerEdge / 64)]->type == solidBlock
-		|| map.blocks[(int)((bottomPlayerEdge + 1) / 64)][(int)(leftPlayerEdge / 64)]->type == breakableBlock
-		|| map.blocks[(int)((bottomPlayerEdge + 1) / 64)][(int)(rightPlayerEdge / 64)]->type == solidBlock
-		|| map.blocks[(int)((bottomPlayerEdge + 1) / 64)][(int)(rightPlayerEdge / 64)]->type == breakableBlock)
+	if (map.blocks[(int)((bottomPlayerEdge + 1) / 64)][(int)((leftPlayerEdge + 5) / 64)]->type == solidBlock
+		|| map.blocks[(int)((bottomPlayerEdge + 1) / 64)][(int)((leftPlayerEdge + 5) / 64)]->type == breakableBlock
+		|| map.blocks[(int)((bottomPlayerEdge + 1) / 64)][(int)((rightPlayerEdge - 5) / 64)]->type == solidBlock
+		|| map.blocks[(int)((bottomPlayerEdge + 1) / 64)][(int)((rightPlayerEdge - 5) / 64)]->type == breakableBlock)
 	{
 		this->ForbidGoingDown();
-		position.y -= 1;
 	}
 	else
 		this->AllowGoingDown();
