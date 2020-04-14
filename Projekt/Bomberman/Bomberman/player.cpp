@@ -244,3 +244,14 @@ void Player::SaveToFile(bool param)
 
 	outputFile << "\t -" << this->name << " planted " << this->bombPlaced << " bomb(s)\n";
 }
+
+void Player::SetPositionForLAN(int x, int y)
+{
+	position.x = x;
+	position.y = y;
+}
+
+void Player::GetPositionForLAN(std::string & data)
+{
+	data += std::to_string(position.x) + ' ' + std::to_string(position.y);
+}

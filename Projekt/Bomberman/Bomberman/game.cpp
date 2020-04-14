@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 
 #include "game.hpp"
 #include "player.hpp"
@@ -137,10 +138,30 @@ void Game::Play()
 
 //-------------------LAN-------------------//
 
-void Game::PlayLAN()
+void Game::PlayLAN(char choice)
 {
 	sf::Clock clock;
 	sf::Time time;
+
+	
+
+	sf::TcpSocket socket;
+	sf::IpAddress ip = sf::IpAddress::getLocalAddress();
+	std::string data;
+	std::string response;
+	std::size_t received;
+	char buffer[2000];
+
+	if (choice == 'c')
+	{
+		socket.connect(ip, 5300);
+	}
+	else if (choice == 's')
+	{
+		sf::TcpListener listener;
+		listener.listen(5300);
+		listener.accept(socket);
+	}
 
 	if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
 	{
@@ -208,8 +229,19 @@ void Game::PlayLAN()
 
 		if (!isOver)
 		{
+			data.clear();										//czyszcze string
+			memset(buffer, 0, sizeof buffer);					//czyszcze bufor
+			received = 0;										//czyszcze 
+
 			player1.MoveWSAD(time, map);
-			player2.MoveArrows(time, map);
+			player1.GetPositionForLAN(data);
+			socket.send(data.c_str(), data.length() + 1);		//wysylam moja pozycje
+			socket.receive(buffer, sizeof(buffer), received);	//odbieram pozycje przeciwnika
+
+			int positionX, positionY;
+			sscanf_s(buffer, "%d %d", &positionX, &positionY);
+			player2.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
+			
 
 			if (player1.IsKilled())
 			{

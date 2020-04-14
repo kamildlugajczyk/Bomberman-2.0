@@ -124,4 +124,8 @@ public:
 	@param param parametr true dla gracza wygranego, po to by dwa razy nie
 				 wypisywac daty i godziny */
 	void SaveToFile(bool param);
+
+	void SetPositionForLAN(int x, int y);
+
+	void GetPositionForLAN(std::string & data);
 };

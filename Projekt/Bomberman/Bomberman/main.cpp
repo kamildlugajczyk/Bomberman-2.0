@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 
@@ -6,41 +7,55 @@
 
 int main()
 {
-	/*Game newGame{};
-	newGame.Play();*/
-
-	//-------- Testing TCP protocole ------- //
 	char choice;
-	std::cout << "S - server, C - client";
+	std::cout << "s - server, s - client" << std::endl;
 	std::cin >> choice;
 
-	sf::TcpSocket socket;
-	sf::IpAddress ip = sf::IpAddress::getLocalAddress();
-	std::string data = "x: 20 y: 25 right";
-	std::string response = "Ok thank you!";
-	char buffer[2000];
-	std::size_t received;
+	Game newGame{};
+	newGame.PlayLAN(choice);
 
-	//-------- Client ------ //
-	if (choice == 'c')
-	{
-		socket.connect(ip, 5300);
-		socket.send(data.c_str(), data.length() + 1);
-	}
-	//-------- Server ------ //
-	else if (choice == 's')
-	{
-		sf::TcpListener listener;
-		listener.listen(5300);
-		listener.accept(socket);
-		socket.send(response.c_str(), response.length() + 1);
-	}
+	////-------- Testing TCP protocole ------- //
+	//char choice;
+	//std::cout << "S - server, C - client";
+	//std::cin >> choice;
 
-	socket.receive(buffer, sizeof(buffer), received);
-	std::cout << std::endl << buffer;
+	//sf::TcpSocket socket;
+	//sf::IpAddress ip = sf::IpAddress::getLocalAddress();
+	//std::string data;
+	//std::string response = "4 10";
+	//char buffer[2000];
+	//std::size_t received;
 
-	std::getchar();
-	std::getchar();
+	//int positionx = 44, positiony = 22;
+	//int gotPositionx, gotPositiony = 22;
+
+	////-------- Client ------ //
+	//if (choice == 'c')
+	//{
+	//	data.clear();
+	//	data += std::to_string(positionx) + ' ' + std::to_string(positiony);
+	//	std::cout << std::endl << data;
+	//	socket.connect(ip, 5300);
+	//	socket.send(data.c_str(), data.length() + 1);
+	//}
+	////-------- Server ------ //
+	//else if (choice == 's')
+	//{
+	//	sf::TcpListener listener;
+	//	listener.listen(5300);
+	//	listener.accept(socket);
+	//	//socket.send(response.c_str(), response.length() + 1);
+	//}
+
+	//socket.receive(buffer, sizeof(buffer), received);
+	//std::cout << "Char array" << std::endl << buffer << std::endl;
+
+	//sscanf_s(buffer, "%d %d", &gotPositionx, &gotPositiony);
+	//std::cout << "\nInt values" << std::endl << gotPositionx << std::endl << gotPositiony << std::endl;
+	//std::cout << gotPositionx + gotPositiony;
+
+	//std::getchar();
+	//std::getchar();
 
 	return 0;
 }
