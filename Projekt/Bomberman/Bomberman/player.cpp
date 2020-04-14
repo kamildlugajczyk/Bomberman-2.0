@@ -80,13 +80,13 @@ void Player::MoveArrows(const sf::Time & deltaTime, Map & map)
 	{
 		timeSinceBomb = bombCooldown;
 
-		Bomb * bomb = new Bomb{};
-		bomb->SetUp();
-		this->bombPlaced++;
-
 		sf::Vector2f bombLocation = this->GetPosition();									// robi zeby bomba  
 		bombLocation.x = ((int)bombLocation.x / 64) * 64;									// pojawila sie dokladnie
 		bombLocation.y = ((int)bombLocation.y / 64) * 64;									// w kratce a nie np w polowie
+
+		Bomb * bomb = new Bomb{};
+		bomb->SetUp();
+		this->bombPlaced++;
 
 		bomb->SetPosition(bombLocation);
 
@@ -168,7 +168,7 @@ void Player::CheckForCollisions(const sf::Time & deltaTime, Map & map)
 	float leftPlayerEdge = this->GetCollisionBox().left - collisionBox.width / 2;
 	float rightPlayerEdge = this->GetCollisionBox().left + collisionBox.width / 2;
 	float topPlayerEdge = this->GetCollisionBox().top - collisionBox.height / 2;
-	float bottomPlayerEdge = this->GetCollisionBox().top  + collisionBox.height / 2;
+	float bottomPlayerEdge = this->GetCollisionBox().top + collisionBox.height / 2;
 
 	sf::FloatRect playerCheck(sf::Vector2f(leftPlayerEdge / 64, topPlayerEdge / 64), sf::Vector2f(rightPlayerEdge / 64, bottomPlayerEdge / 64));
 

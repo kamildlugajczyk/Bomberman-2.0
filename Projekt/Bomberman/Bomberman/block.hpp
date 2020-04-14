@@ -12,6 +12,7 @@ public:
 	int type;											// zmienna informujaca o typie bloku
 	bool destroyed = false;								// zmienna informujaca o tym czy blok zostal zniszczony
 	bool exploded = false;								// zmienna informujaca o tym czy blok zostal eksplodowany
+	bool collideNow = false;
 
 	/* Wirtualna metoda ustawiajaca pozycje sprite'a
 	@param deltaTime czas od ostatniej iteracji*/
@@ -32,4 +33,8 @@ public:
 
 	/* Metoda zwracajaca zmienna exploded*/
 	bool IsExploded() { return exploded; };
+
+	void Collide() { collideNow = true; };
+
+	bool ShouldCollide() { return collideNow;  }
 };

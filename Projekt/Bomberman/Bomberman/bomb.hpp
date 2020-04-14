@@ -9,6 +9,7 @@ class Bomb : public Block
 {
 	int type;									// typ bloku
 	float explodeTime;							// zmienna okreslajaca czas po ktorym eksploduje bomba
+	float collideTime;							// zmienna okreslajaca czas po ktorym bomba zacznie kolidowaæ (tak zeby gracz nie blokowal sie na wlasnie postawionej bombie)
 	sf::Texture bombTexture;					// tesktura bomby
 
 public:

@@ -65,6 +65,9 @@ void Map::Update(const sf::Time deltaTime)
 		{
 			blocks[w][k]->Update(deltaTime);
 
+			if (blocks[w][k]->ShouldCollide())
+				blocks[w][k]->type = solidBlock;
+
 			if (blocks[w][k]->IsDestroyed())
 			{
 				delete blocks[w][k];													// usuwam bombe
