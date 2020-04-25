@@ -46,4 +46,6 @@ public:
 	licznika podstawionych bomb oraz ustawienie atrybutu killed
 	obu graczy na false */
 	void PlayAgain();
+
+	void ListenTCP(sf::TcpSocket & socket);
 };

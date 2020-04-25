@@ -7,8 +7,11 @@
 
 int main()
 {
+	/*Game game;
+	game.Play();*/
+
 	char choice;
-	std::cout << "s - server, s - client" << std::endl;
+	std::cout << "s - server, c - client" << std::endl;
 	std::cin >> choice;
 
 	Game newGame{};

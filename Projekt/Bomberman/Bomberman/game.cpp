@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <thread>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 
@@ -10,6 +11,8 @@
 #include "breakable_wall.hpp"
 #include "bomb.hpp"
 #include "end_game_screen.hpp"
+
+static bool gotConnection = false;
 
 Game::Game()
 {
@@ -142,7 +145,6 @@ void Game::PlayLAN(char choice)
 {
 	sf::Clock clock;
 	sf::Time time;
-
 	
 
 	sf::TcpSocket socket;
@@ -154,13 +156,17 @@ void Game::PlayLAN(char choice)
 
 	if (choice == 'c')
 	{
-		socket.connect(ip, 5300);
+		socket.connect(ip, 53000);
 	}
 	else if (choice == 's')
 	{
 		sf::TcpListener listener;
-		listener.listen(5300);
+		listener.listen(53000);
 		listener.accept(socket);
+		std::cout << "Connection accepted" << std::endl;
+		//std::thread listenerTCP;
+		//listenerTCP = std::thread([&] { this->ListenTCP(socket); });
+
 	}
 
 	if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
@@ -233,15 +239,30 @@ void Game::PlayLAN(char choice)
 			memset(buffer, 0, sizeof buffer);					//czyszcze bufor
 			received = 0;										//czyszcze 
 
-			player1.MoveWSAD(time, map);
-			player1.GetPositionForLAN(data);
-			socket.send(data.c_str(), data.length() + 1);		//wysylam moja pozycje
-			socket.receive(buffer, sizeof(buffer), received);	//odbieram pozycje przeciwnika
+			if (choice == 's')
+			{
+				player1.MoveWSAD(time, map);
+				player1.GetPositionForLAN(data);
+				socket.send(data.c_str(), data.length() + 1);		//wysylam moja pozycje
+				socket.receive(buffer, sizeof(buffer), received);	//odbieram pozycje przeciwnika
 
-			int positionX, positionY;
-			sscanf_s(buffer, "%d %d", &positionX, &positionY);
-			player2.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
-			
+				int positionX, positionY;
+				sscanf_s(buffer, "%d %d", &positionX, &positionY);
+				player2.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
+				std::cout << "I received " << positionX << " ," << positionY << std::endl;
+			}
+			if (choice == 'c')
+			{
+				player2.MoveArrows(time, map);
+				player2.GetPositionForLAN(data);
+				socket.send(data.c_str(), data.length() + 1);		//wysylam moja pozycje
+				socket.receive(buffer, sizeof(buffer), received);	//odbieram pozycje przeciwnika
+
+				int positionX, positionY;
+				sscanf_s(buffer, "%d %d", &positionX, &positionY);
+				player1.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
+				std::cout << "I received " << positionX << " ," << positionY << std::endl;
+			}
 
 			if (player1.IsKilled())
 			{
@@ -283,4 +304,14 @@ void Game::PlayAgain()
 	player2.bombPlaced = 0;
 
 	once = true;
+}
+
+void Game::ListenTCP(sf::TcpSocket & socket)
+{
+	while (!gotConnection)
+	{
+		sf::TcpListener listener;
+		listener.listen(53000);
+		listener.accept(socket);	
+	}
 }
