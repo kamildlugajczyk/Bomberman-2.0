@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 
 #include "graphic_object.hpp"
@@ -128,4 +129,12 @@ public:
 	void SetPositionForLAN(int x, int y);
 
 	void GetPositionForLAN(std::string & data);
+
+	std::string toString(float &i) 
+	{
+		std::stringstream ss;
+		ss << i;
+
+		return ss.str();
+	}
 };

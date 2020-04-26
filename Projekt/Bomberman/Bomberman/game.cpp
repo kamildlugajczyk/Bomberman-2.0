@@ -250,8 +250,8 @@ void Game::PlayLAN(char choice)
 				int positionY;
 				sscanf_s(buffer, "%d %d ", &positionX, &positionY);
 				player2.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
-				std::cout << "Odebrane: " << buffer << std::endl;
-				std::cout << "I received " << positionX << " ," << positionY << std::endl;
+				//std::cout << "Odebrane: " << buffer << std::endl;
+				//std::cout << "I received " << positionX << " ," << positionY << std::endl;
 				//std::cout << "My position " << player1.GetPosition().x << " ," << player1.GetPosition().y << std::endl;
 
 			}
@@ -266,8 +266,8 @@ void Game::PlayLAN(char choice)
 				int positionY;
 				sscanf_s(buffer, "%d %d ", &positionX, &positionY);
 				player1.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
-				std::cout << "Odebrane: " << buffer << std::endl;
-				std::cout << "I received " << positionX << " ," << positionY << std::endl;
+				//std::cout << "Odebrane: " << buffer << std::endl;
+				//std::cout << "I received " << positionX << " ," << positionY << std::endl;
 				//std::cout << "My position " << player2.GetPosition().x << " ," << player2.GetPosition().y << std::endl;
 			}
 
