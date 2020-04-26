@@ -235,33 +235,40 @@ void Game::PlayLAN(char choice)
 
 		if (!isOver)
 		{
-			data.clear();										//czyszcze string
-			memset(buffer, 0, sizeof buffer);					//czyszcze bufor
-			received = 0;										//czyszcze 
+			data.clear();																//czyszcze string
+			memset(buffer, 0, sizeof buffer);											//czyszcze bufor
+			received = 0;																//czyszcze 
 
-			if (choice == 's')
+			if (choice == 's')															//player 1
 			{
 				player1.MoveWSAD(time, map);
 				player1.GetPositionForLAN(data);
-				socket.send(data.c_str(), data.length() + 1);		//wysylam moja pozycje
-				socket.receive(buffer, sizeof(buffer), received);	//odbieram pozycje przeciwnika
+				socket.send(data.c_str(), data.length() + 1);							//wysylam moja pozycje
+				socket.receive(buffer, sizeof(buffer), received);						//odbieram pozycje przeciwnika
 
-				int positionX, positionY;
-				sscanf_s(buffer, "%d %d", &positionX, &positionY);
+				int positionX = 0;
+				int positionY = 0;
+				sscanf_s(buffer, "%d %d ", &positionX, &positionY);
 				player2.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
+				std::cout << "Odebrane: " << buffer << std::endl;
 				std::cout << "I received " << positionX << " ," << positionY << std::endl;
+				//std::cout << "My position " << player1.GetPosition().x << " ," << player1.GetPosition().y << std::endl;
+
 			}
-			if (choice == 'c')
+			else if (choice == 'c')															//player 2
 			{
 				player2.MoveArrows(time, map);
 				player2.GetPositionForLAN(data);
-				socket.send(data.c_str(), data.length() + 1);		//wysylam moja pozycje
-				socket.receive(buffer, sizeof(buffer), received);	//odbieram pozycje przeciwnika
+				socket.send(data.c_str(), data.length() + 1);							//wysylam moja pozycje
+				socket.receive(buffer, sizeof(buffer), received);						//odbieram pozycje przeciwnika
 
-				int positionX, positionY;
-				sscanf_s(buffer, "%d %d", &positionX, &positionY);
+				int positionX = 0;
+				int positionY = 0;
+				sscanf_s(buffer, "%d %d ", &positionX, &positionY);
 				player1.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
+				std::cout << "Odebrane: " << buffer << std::endl;
 				std::cout << "I received " << positionX << " ," << positionY << std::endl;
+				//std::cout << "My position " << player2.GetPosition().x << " ," << player2.GetPosition().y << std::endl;
 			}
 
 			if (player1.IsKilled())

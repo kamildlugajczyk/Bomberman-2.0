@@ -253,5 +253,5 @@ void Player::SetPositionForLAN(int x, int y)
 
 void Player::GetPositionForLAN(std::string & data)
 {
-	data += std::to_string(position.x) + ' ' + std::to_string(position.y);
+	data += std::to_string(this->position.x) + ' ' + std::to_string(this->position.y) + '\0';
 }
