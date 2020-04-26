@@ -247,7 +247,7 @@ void Game::PlayLAN(char choice)
 				socket.receive(buffer, sizeof(buffer), received);						//odbieram pozycje przeciwnika
 
 				int positionX = 0;
-				int positionY = 0;
+				int positionY;
 				sscanf_s(buffer, "%d %d ", &positionX, &positionY);
 				player2.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
 				std::cout << "Odebrane: " << buffer << std::endl;
@@ -263,7 +263,7 @@ void Game::PlayLAN(char choice)
 				socket.receive(buffer, sizeof(buffer), received);						//odbieram pozycje przeciwnika
 
 				int positionX = 0;
-				int positionY = 0;
+				int positionY;
 				sscanf_s(buffer, "%d %d ", &positionX, &positionY);
 				player1.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
 				std::cout << "Odebrane: " << buffer << std::endl;
