@@ -80,7 +80,7 @@ void Player::MoveArrows(const sf::Time & deltaTime, Map & map)
 	{
 		timeSinceBomb = bombCooldown;
 
-		sf::Vector2f bombLocation = this->GetPosition();									// robi zeby bomba  
+		bombLocation = this->GetPosition();									// robi zeby bomba  
 		bombLocation.x = ((int)bombLocation.x / 64) * 64;									// pojawila sie dokladnie
 		bombLocation.y = ((int)bombLocation.y / 64) * 64;									// w kratce a nie np w polowie
 
@@ -253,6 +253,6 @@ void Player::SetPositionForLAN(int x, int y)
 
 void Player::GetPositionForLAN(std::string & data)
 {
-	data += toString(this->position.x) + ' ' + toString(this->position.y) + '\0';
-	std::cout << " string" << data << std::endl;
+	data += toString(this->position.x) + ' ' + toString(this->position.y)
+		+ toString(this->bombLocation.x) + ' ' + toString(this->bombLocation.y) + '\0';
 }

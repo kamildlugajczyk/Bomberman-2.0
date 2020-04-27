@@ -18,6 +18,9 @@ class Player : public GraphicObject
 	bool canGoUp, canGoDown, canGoLeft, canGoRight;				// wartosci informujace o mozliwosci poruszania sie w danym kierunku
 	float timeSinceBomb, bombCooldown;							// czas od postawienia ostatniej bomby | czas po ktorym mozna postawic kolejna bombe
 
+	// TODO - think about better way of bomb position 
+	sf::Vector2f bombLocation;
+
 public:
 	sf::Texture texture_p1, texture_p2;							// tekstrura gracza 1 | tekstura gracza 2
 	int bombPlaced;												// licznik postawioncyh bomb podczas calej rozgrywki
