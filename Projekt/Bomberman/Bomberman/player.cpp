@@ -94,6 +94,11 @@ void Player::MoveArrows(const sf::Time & deltaTime, Map & map)
 		map.blocks[(int)(this->position.y) / 64][(int)(this->position.x) / 64] = bomb;
 		map.blocks[(int)(this->position.y) / 64][(int)(this->position.x) / 64]->type = bombBlock;
 	}
+	else
+	{
+		bombLocation.x = -1;								// jesli bomba nie zostala postawiona to -1
+		bombLocation.y = -1;								// tak aby za kazdym razem ramka TCP byla identyczna
+	}
 }
 
 void Player::GoUp(const sf::Time & deltaTime, Map & map)
