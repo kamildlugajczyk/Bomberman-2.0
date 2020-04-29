@@ -3,6 +3,7 @@
 
 class Reaktor
 {
+protected:
 	int paliwo;
 	std::string nazwa;
 
