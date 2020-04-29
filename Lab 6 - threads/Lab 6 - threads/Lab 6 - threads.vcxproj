@@ -115,6 +115,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="reactor.cpp" />
+    <ClCompile Include="reactorMK2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="reactor.hpp" />
+    <ClInclude Include="reactorMK2.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
