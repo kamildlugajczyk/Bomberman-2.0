@@ -4,7 +4,6 @@
 #include "reactor.hpp"
 #include "reactorMK2.hpp"
 
-//std::atomic_flag lock = ATOMIC_FLAG_INIT;
 
 int main()
 {
