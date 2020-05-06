@@ -17,7 +17,23 @@ int main()
 	std::cout << login4 << " result: " << isLoginValid(login4) << std::endl;
 
 	std::string login5("ilikegames");
-	std::cout << login5 << " result: " << isLoginValid(login5) << std::endl;
+	std::cout << login5 << " result: " << isLoginValid(login5) << std::endl << std::endl;
+	//-------------------------------------------------------------------//
+	std::string email1("adamsmith@gmail.com");
+	std::cout << email1 << " result: " << isEmailValid(email1) << std::endl;
+
+	std::string email2("Adam-Smith@ex1am_ple.pl");
+	std::cout << email2 << " result: " << isEmailValid(email2) << std::endl;
+
+	std::string email3("-Adam-Smith@example.eu");
+	std::cout << email3 << " result: " << isEmailValid(email3) << std::endl;
+
+	std::string email4("ThePresident45@mail.gov.com");
+	std::cout << email4 << " result: " << isEmailValid(email4) << std::endl;
+
+	std::string email5("_lol_mail@lolmail.gov.com");
+	std::cout << email5 << " result: " << isEmailValid(email5) << std::endl;
+
 
 	std::getchar();
 	return 0;
