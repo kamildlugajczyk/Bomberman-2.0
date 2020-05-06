@@ -46,6 +46,19 @@ int main()
 	std::regex checkSenetence2("([a-zA-Z]*[wW]ood[a-zA-Z]*)|([a-zA-Z]*[cC]huck[a-zA-Z]*)");
 	showMatches(sentence2, checkSenetence2);
 
+	//---------------------------------------------------------------------------------------------//
+
+	std::string uglyString = "To be     fair, you have    to have a\n\n very high     IQ to understand   Rick and Morty.\n\n\nAnd    yes, by   the way, I\n DO have a Rick & Morty tattoo.";
+	std::string prettyString;
+
+	prettyString = std::regex_replace(uglyString, std::regex("(\\\n){2,}"), "\n");			// nadmiarowe nowe linie
+	prettyString = std::regex_replace(prettyString, std::regex("( ){2,}"), " ");			// nadmiarowe spacje
+	prettyString = std::regex_replace(prettyString, std::regex("( a\\n)"), " \na");			// przerzucenie do nowej lini 'a'
+	prettyString = std::regex_replace(prettyString, std::regex("( I\\n)"), " \nI");			// przerzucenie do nowej lini 'I'
+
+	std::cout << uglyString << std::endl << std::endl;
+	std::cout << prettyString << std::endl << std::endl;
+
 
 	std::getchar();
 	return 0;
