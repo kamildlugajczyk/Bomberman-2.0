@@ -59,6 +59,13 @@ int main()
 	std::cout << uglyString << std::endl << std::endl;
 	std::cout << prettyString << std::endl << std::endl;
 
+	//---------------------------------------------------------------------------------------------//
+
+	std::string before = "You are a f***ing m********ker";
+	std::string after = std::regex_replace(before, std::regex("[a-zA-Z]\\*+ing"), "quacking");
+	after = std::regex_replace(after, std::regex("[a-zA-Z]\\*+[a-z]*"), "duck");
+
+	std::cout << "String before: " << before << "\nString after: " << after;
 
 	std::getchar();
 	return 0;
