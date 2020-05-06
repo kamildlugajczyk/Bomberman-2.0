@@ -18,7 +18,9 @@ int main()
 
 	std::string login5("ilikegames");
 	std::cout << login5 << " result: " << isLoginValid(login5) << std::endl << std::endl;
-	//-------------------------------------------------------------------//
+
+	//---------------------------------------------------------------------------------------------//
+	
 	std::string email1("adamsmith@gmail.com");
 	std::cout << email1 << " result: " << isEmailValid(email1) << std::endl;
 
@@ -33,6 +35,16 @@ int main()
 
 	std::string email5("_lol_mail@lolmail.gov.com");
 	std::cout << email5 << " result: " << isEmailValid(email5) << std::endl;
+
+	//---------------------------------------------------------------------------------------------//
+
+	std::string sentence1("A kiwi tastes like a kiwi - kiwilicious!");
+	std::regex checkSenetence1("kiwi[^\\S]");
+	showMatches(sentence1, checkSenetence1);
+
+	std::string sentence2("How much wood would a woodchuck chuck if a woodchuck could chuck wood? Would Woodie who chucked that driftwood know?");
+	std::regex checkSenetence2("([a-zA-Z]*[wW]ood[a-zA-Z]*)|([a-zA-Z]*[cC]huck[a-zA-Z]*)");
+	showMatches(sentence2, checkSenetence2);
 
 
 	std::getchar();
