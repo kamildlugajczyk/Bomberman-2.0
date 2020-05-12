@@ -241,28 +241,71 @@ void Game::PlayLAN(char choice)
 
 			if (choice == 's')															//player 1
 			{
+				int positionX = 0;
+				int positionY = 0;
+
+				int bombX = -1;
+				int bombY = -1;
+
 				player1.MoveWSAD(time, map);
 				player1.GetPositionForLAN(data);
 				socket.send(data.c_str(), data.length() + 1);							//wysylam moja pozycje
 				socket.receive(buffer, sizeof(buffer), received);						//odbieram pozycje przeciwnika
 
-				int positionX = 0;
-				int positionY;
-				sscanf_s(buffer, "%d %d ", &positionX, &positionY);
+				sscanf_s(buffer, "%d %d %d %d ", &positionX, &positionY, &bombX, &bombY);
 				player2.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
+
+				// tymczasowe plantowanie bomby
+				if (bombX != -1 && bombY != -1)
+				{
+					Bomb * bomb = new Bomb{};
+					bomb->SetUp();
+					player2.bombPlaced++;
+
+					sf::Vector2f bombXY;
+					bombXY.x = bombX;
+					bombXY.y = bombY;
+
+					bomb->SetPosition(bombXY);
+					map.blocks[(int)(bombXY.y) / 64][(int)(bombXY.x) / 64] = bomb;
+					map.blocks[(int)(bombXY.y) / 64][(int)(bombXY.x) / 64]->type = bombBlock;
+				}
+				
 
 			}
 			else if (choice == 'c')															//player 2
 			{
+				int bombX = -1;
+				int bombY = -1;
+
+				int positionX = 0;
+				int positionY = 0;
+
 				player2.MoveArrows(time, map);
 				player2.GetPositionForLAN(data);
 				socket.send(data.c_str(), data.length() + 1);							//wysylam moja pozycje
 				socket.receive(buffer, sizeof(buffer), received);						//odbieram pozycje przeciwnika
 
-				int positionX = 0;
-				int positionY;
-				sscanf_s(buffer, "%d %d ", &positionX, &positionY);
+				sscanf_s(buffer, "%d %d %d %d ", &positionX, &positionY, &bombX, &bombY);
 				player1.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
+
+
+				// tymczasowe plantowanie bomby
+				if (bombX != -1 && bombY != -1)
+				{
+					Bomb * bomb = new Bomb{};
+					bomb->SetUp();
+					player1.bombPlaced++;
+
+					sf::Vector2f bombXY;
+					bombXY.x = bombX;
+					bombXY.y = bombY;
+
+					bomb->SetPosition(bombXY);
+					map.blocks[(int)(bombXY.y) / 64][(int)(bombXY.x) / 64] = bomb;
+					map.blocks[(int)(bombXY.y) / 64][(int)(bombXY.x) / 64]->type = bombBlock;
+				}
+				
 			}
 
 			if (player1.IsKilled())

@@ -40,21 +40,42 @@ void Player::MoveWSAD(const sf::Time & deltaTime, Map & map)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && timeSinceBomb <= 0)
 	{
+		//timeSinceBomb = bombCooldown;
+
+		//Bomb * bomb = new Bomb{};
+		//bomb->SetUp();
+		//this->bombPlaced++;
+
+		//sf::Vector2f bombLocation = this->GetPosition();									// robi zeby bomba  
+		//bombLocation.x = ((int)bombLocation.x / 64) * 64;									// pojawila sie dokladnie
+		//bombLocation.y = ((int)bombLocation.y / 64) * 64;									// w kratce a nie np w polowie
+
+		//bomb->SetPosition(bombLocation);
+		//
+		//delete map.blocks[(int)(bombLocation.y) / 64][(int)(bombLocation.x) / 64];
+		//map.blocks[(int)(bombLocation.y) / 64][(int)(bombLocation.x) / 64] = bomb;
+		//map.blocks[(int)(bombLocation.y) / 64][(int)(bombLocation.x) / 64]->type = bombBlock;
+
 		timeSinceBomb = bombCooldown;
+
+		bombLocation = this->GetPosition();													// robi zeby bomba  
+		bombLocation.x = ((int)bombLocation.x / 64) * 64;									// pojawila sie dokladnie
+		bombLocation.y = ((int)bombLocation.y / 64) * 64;
 
 		Bomb * bomb = new Bomb{};
 		bomb->SetUp();
 		this->bombPlaced++;
 
-		sf::Vector2f bombLocation = this->GetPosition();									// robi zeby bomba  
-		bombLocation.x = ((int)bombLocation.x / 64) * 64;									// pojawila sie dokladnie
-		bombLocation.y = ((int)bombLocation.y / 64) * 64;									// w kratce a nie np w polowie
-
 		bomb->SetPosition(bombLocation);
-		
-		delete map.blocks[(int)(this->position.y) / 64][(int)(this->position.x) / 64];
-		map.blocks[(int)(this->position.y) / 64][(int)(this->position.x) / 64] = bomb;
-		map.blocks[(int)(this->position.y) / 64][(int)(this->position.x) / 64]->type = bombBlock;
+
+		delete map.blocks[(int)(bombLocation.y) / 64][(int)(bombLocation.x) / 64];
+		map.blocks[(int)(bombLocation.y) / 64][(int)(bombLocation.x) / 64] = bomb;
+		map.blocks[(int)(bombLocation.y) / 64][(int)(bombLocation.x) / 64]->type = bombBlock;
+	}
+	else
+	{
+		bombLocation.x = -1;								// jesli bomba nie zostala postawiona to -1
+		bombLocation.y = -1;								// tak aby za kazdym razem ramka TCP byla identyczna
 	}
 }
 
@@ -78,9 +99,25 @@ void Player::MoveArrows(const sf::Time & deltaTime, Map & map)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::RShift) && timeSinceBomb <= 0)
 	{
+		//timeSinceBomb = bombCooldown;
+
+		//bombLocation = this->GetPosition();									// robi zeby bomba  
+		//bombLocation.x = ((int)bombLocation.x / 64) * 64;									// pojawila sie dokladnie
+		//bombLocation.y = ((int)bombLocation.y / 64) * 64;									// w kratce a nie np w polowie
+
+		//Bomb * bomb = new Bomb{};
+		//bomb->SetUp();
+		//this->bombPlaced++;
+
+		//bomb->SetPosition(bombLocation);
+
+		//delete map.blocks[(int)(bombLocation.y) / 64][(int)(bombLocation.x) / 64];
+		//map.blocks[(int)(bombLocation.y) / 64][(int)(bombLocation.x) / 64] = bomb;
+		//map.blocks[(int)(bombLocation.y) / 64][(int)(bombLocation.x) / 64]->type = bombBlock;
+
 		timeSinceBomb = bombCooldown;
 
-		bombLocation = this->GetPosition();									// robi zeby bomba  
+		bombLocation = this->GetPosition();													// robi zeby bomba  
 		bombLocation.x = ((int)bombLocation.x / 64) * 64;									// pojawila sie dokladnie
 		bombLocation.y = ((int)bombLocation.y / 64) * 64;									// w kratce a nie np w polowie
 
@@ -90,9 +127,9 @@ void Player::MoveArrows(const sf::Time & deltaTime, Map & map)
 
 		bomb->SetPosition(bombLocation);
 
-		delete map.blocks[(int)(this->position.y) / 64][(int)(this->position.x) / 64];
-		map.blocks[(int)(this->position.y) / 64][(int)(this->position.x) / 64] = bomb;
-		map.blocks[(int)(this->position.y) / 64][(int)(this->position.x) / 64]->type = bombBlock;
+		delete map.blocks[(int)(bombLocation.y) / 64][(int)(bombLocation.x) / 64];
+		map.blocks[(int)(bombLocation.y) / 64][(int)(bombLocation.x) / 64] = bomb;
+		map.blocks[(int)(bombLocation.y) / 64][(int)(bombLocation.x) / 64]->type = bombBlock;
 	}
 	else
 	{
@@ -258,6 +295,8 @@ void Player::SetPositionForLAN(int x, int y)
 
 void Player::GetPositionForLAN(std::string & data)
 {
-	data += toString(this->position.x) + ' ' + toString(this->position.y)
+	data += toString(this->position.x) + ' ' + toString(this->position.y) + ' '
 		+ toString(this->bombLocation.x) + ' ' + toString(this->bombLocation.y) + '\0';
+
+	//std::cout << data << std::endl;
 }
