@@ -156,12 +156,15 @@ void Game::PlayLAN(char choice)
 
 	if (choice == 'c')
 	{
+		std::cout << "Podaj adres servera: \n";
+		std::cin >> ip;
+
 		socket.connect(ip, 53000);
 	}
 	else if (choice == 's')
 	{
 		sf::TcpListener listener;
-		listener.listen(53000);
+		listener.listen(53000); 
 		listener.accept(socket);
 		std::cout << "Connection accepted" << std::endl;
 		//std::thread listenerTCP;
