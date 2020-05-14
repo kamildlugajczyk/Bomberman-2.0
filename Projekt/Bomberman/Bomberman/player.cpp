@@ -81,7 +81,7 @@ void Player::MoveArrows(const sf::Time & deltaTime, Map & map)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		GoRight(deltaTime, map);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::RShift) && timeSinceBomb <= 0)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && timeSinceBomb <= 0)
 	{
 		timeSinceBomb = bombCooldown;
 
