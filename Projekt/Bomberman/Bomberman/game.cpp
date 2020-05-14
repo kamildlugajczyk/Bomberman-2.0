@@ -421,10 +421,10 @@ void Game::PlayLAN(char choice)
 				if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
 					window.close();
 
-				if (isOver)
-				{
+				//if (isOver)
+				//{
 					// usunalem tymczasowo zapis do pliku
-					PlayAgain();
+					//PlayAgain();
 					
 					/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 					{
@@ -434,6 +434,23 @@ void Game::PlayLAN(char choice)
 					{
 						window.close();
 					}*/
+				//}
+			}
+
+			if (isOver)
+			{
+				std::string playOrQuit;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+				{
+					playOrQuit = '1';
+					socket.send(playOrQuit.c_str(), playOrQuit.length() + 1);
+					PlayAgain();
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				{
+					playOrQuit = '0';
+					socket.send(playOrQuit.c_str(), playOrQuit.length() + 1);
+					window.close();
 				}
 			}
 
@@ -507,9 +524,25 @@ void Game::PlayLAN(char choice)
 				if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
 					window.close();
 
-				if (isOver)
+			}
+
+			if (isOver)
+			{
+				data.clear();																//czyszcze string
+				memset(buffer, 0, sizeof buffer);											//czyszcze bufor
+				received = 0;
+
+				bool playOrQuit;
+				socket.receive(buffer, sizeof(buffer), received);
+				sscanf_s(buffer, "%d ", &playOrQuit);
+
+				if (playOrQuit)
 				{
 					PlayAgain();
+				}
+				else if (!playOrQuit)
+				{
+					window.close();
 				}
 			}
 
@@ -560,12 +593,12 @@ void Game::PlayLAN(char choice)
 
 				if (player1.IsKilled())
 				{
-					//isOver = true;
+					isOver = true;
 					endGameScreen.DisplayPlayer1Win(false);
 				}
 				else if (player2.IsKilled())
 				{
-					//isOver = true;
+					isOver = true;
 					endGameScreen.DisplayPlayer1Win(true);
 				}
 			}
