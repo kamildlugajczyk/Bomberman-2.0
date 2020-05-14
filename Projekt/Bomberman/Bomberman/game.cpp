@@ -156,8 +156,8 @@ void Game::PlayLAN(char choice)
 
 	if (choice == 'c')
 	{
-		std::cout << "Podaj adres servera: \n";
-		std::cin >> ip;
+		//std::cout << "Podaj adres servera: \n";
+		//std::cin >> ip;
 
 		socket.connect(ip, 53000);
 	}

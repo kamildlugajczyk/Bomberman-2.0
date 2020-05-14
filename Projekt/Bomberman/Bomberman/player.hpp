@@ -133,7 +133,8 @@ public:
 
 	void GetPositionForLAN(std::string & data);
 
-	std::string toString(float &i) 
+	template <typename T>
+	std::string toString(T i) 
 	{
 		std::stringstream ss;
 		ss << i;
