@@ -10,7 +10,7 @@ void EndGameScreen::Draw(sf::RenderWindow & window)
 	window.draw(subText2);
 }
 
-void EndGameScreen::DisplayPlayer1Win(bool player1win)
+void EndGameScreen::DisplayPlayer1Win(bool player1win, bool host)
 {
 	mainText.setPosition(270, 200);
 	mainText.setCharacterSize(50);
@@ -26,8 +26,15 @@ void EndGameScreen::DisplayPlayer1Win(bool player1win)
 	else
 		mainText.setString("Player 2 wins!");
 
-	subText1.setString("Press R to play again");
-	subText2.setString("Press ESC to exit");
+	if (host)
+	{
+		subText1.setString("Press R to play again");
+		subText2.setString("Press ESC to go to main menu");
+	}
+	else
+	{
+		subText1.setString("Wait for host's decision...");
+	}
 }
 
 void EndGameScreen::LoadFont(const sf::Font & font)

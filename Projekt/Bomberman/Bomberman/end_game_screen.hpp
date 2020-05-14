@@ -17,7 +17,7 @@ public:
 
 	/* Metoda wywietlajaca informacje o wygranej ktoregos z graczy
 	@param player1win true gdy wygral gracz 1, false gdy wygral gracz 2*/
-	void DisplayPlayer1Win(bool player1win);
+	void DisplayPlayer1Win(bool player1win, bool host);
 
 	/* Metoda wczytujaca czcionke podana w parametrze
 	@param font wybrana czcionka */

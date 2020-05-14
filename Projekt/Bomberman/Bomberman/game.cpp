@@ -501,12 +501,12 @@ void Game::PlayLAN(char choice)
 				if (player1.IsKilled())
 				{
 					isOver = true;
-					endGameScreen.DisplayPlayer1Win(false);
+					endGameScreen.DisplayPlayer1Win(false, true);
 				}
 				else if (player2.IsKilled())
 				{
 					isOver = true;
-					endGameScreen.DisplayPlayer1Win(true);
+					endGameScreen.DisplayPlayer1Win(true, true);
 				}
 			}
 			Update(time);
@@ -533,6 +533,7 @@ void Game::PlayLAN(char choice)
 				received = 0;
 
 				bool playOrQuit;
+				// Dodac czekanie jako osobny watek
 				socket.receive(buffer, sizeof(buffer), received);
 				sscanf_s(buffer, "%d ", &playOrQuit);
 
@@ -594,12 +595,12 @@ void Game::PlayLAN(char choice)
 				if (player1.IsKilled())
 				{
 					isOver = true;
-					endGameScreen.DisplayPlayer1Win(false);
+					endGameScreen.DisplayPlayer1Win(false, false);
 				}
 				else if (player2.IsKilled())
 				{
 					isOver = true;
-					endGameScreen.DisplayPlayer1Win(true);
+					endGameScreen.DisplayPlayer1Win(true, false);
 				}
 			}
 			Update(time);
