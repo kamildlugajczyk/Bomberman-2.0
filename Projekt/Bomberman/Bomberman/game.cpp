@@ -420,21 +420,6 @@ void Game::PlayLAN(char choice)
 			{
 				if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
 					window.close();
-
-				//if (isOver)
-				//{
-					// usunalem tymczasowo zapis do pliku
-					//PlayAgain();
-					
-					/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-					{
-						PlayAgain();
-					}
-					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-					{
-						window.close();
-					}*/
-				//}
 			}
 
 			if (isOver)
@@ -460,6 +445,7 @@ void Game::PlayLAN(char choice)
 			if (!isOver)
 			{
 				bool isOtherPlayerKilled = false;
+				bool direction = 1;
 
 				data.clear();																//czyszcze string
 				memset(buffer, 0, sizeof buffer);											//czyszcze bufor
@@ -472,12 +458,13 @@ void Game::PlayLAN(char choice)
 				int bombY = -1;
 
 				player1.MoveWSAD(time, map);
-				player1.GetPositionForLAN(data);
+				player1.GetDataForLAN(data);
 				socket.send(data.c_str(), data.length() + 1);							//wysylam moja pozycje
 				socket.receive(buffer, sizeof(buffer), received);						//odbieram pozycje przeciwnika
 
-				sscanf_s(buffer, "%d %d %d %d %d ", &positionX, &positionY, &bombX, &bombY, &isOtherPlayerKilled);
+				sscanf_s(buffer, "%d %d %d %d %d %d ", &positionX, &positionY, &direction, &bombX, &bombY, &isOtherPlayerKilled);
 				player2.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
+				player2.SetMovingSate(direction);
 
 				// tymczasowe plantowanie bomby
 				if (bombX != -1 && bombY != -1)
@@ -495,15 +482,12 @@ void Game::PlayLAN(char choice)
 					map.blocks[(int)(bombXY.y) / 64][(int)(bombXY.x) / 64]->type = bombBlock;
 				}
 
-				if (isOtherPlayerKilled)
-					player2.Kill();
-
 				if (player1.IsKilled())
 				{
 					isOver = true;
 					endGameScreen.DisplayPlayer1Win(false, true);
 				}
-				else if (player2.IsKilled())
+				else if (isOtherPlayerKilled)
 				{
 					isOver = true;
 					endGameScreen.DisplayPlayer1Win(true, true);
@@ -553,6 +537,7 @@ void Game::PlayLAN(char choice)
 			if (!isOver)
 			{
 				bool isOtherPlayerKilled = false;
+				bool direction = 1;
 
 				data.clear();																//czyszcze string
 				memset(buffer, 0, sizeof buffer);											//czyszcze bufor
@@ -565,13 +550,13 @@ void Game::PlayLAN(char choice)
 				int positionY = 0;
 
 				player2.MoveArrows(time, map);
-				player2.GetPositionForLAN(data);
+				player2.GetDataForLAN(data);
 				socket.send(data.c_str(), data.length() + 1);							//wysylam moja pozycje
 				socket.receive(buffer, sizeof(buffer), received);						//odbieram pozycje przeciwnika
 
-				sscanf_s(buffer, "%d %d %d %d %d ", &positionX, &positionY, &bombX, &bombY, &isOtherPlayerKilled);
+				sscanf_s(buffer, "%d %d %d %d %d %d", &positionX, &positionY, &direction, &bombX, &bombY, &isOtherPlayerKilled);
 				player1.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
-
+				player1.SetMovingSate(direction);
 
 				// tymczasowe plantowanie bomby
 				if (bombX != -1 && bombY != -1)
@@ -590,9 +575,6 @@ void Game::PlayLAN(char choice)
 				}
 
 				if (isOtherPlayerKilled)
-					player1.Kill();
-
-				if (player1.IsKilled())
 				{
 					isOver = true;
 					endGameScreen.DisplayPlayer1Win(false, false);

@@ -131,7 +131,9 @@ public:
 
 	void SetPositionForLAN(int x, int y);
 
-	void GetPositionForLAN(std::string & data);
+	void GetDataForLAN(std::string & data);
+
+	void SetMovingSate(bool direction);
 
 	template <typename T>
 	std::string toString(T i) 

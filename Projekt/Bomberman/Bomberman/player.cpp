@@ -10,7 +10,7 @@
 #include "enum.hpp"
 
 Player::Player(std::string arg_name)
-	: bombCooldown(2.f), defaultVelocity(200.f, 200.f), playerState(stand), name(arg_name), bombPlaced(0)
+	: bombCooldown(2.f), defaultVelocity(200.f, 200.f), playerState(movingRight), name(arg_name), bombPlaced(0)
 {
 	velocity = defaultVelocity;
 
@@ -81,7 +81,7 @@ void Player::MoveArrows(const sf::Time & deltaTime, Map & map)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		GoRight(deltaTime, map);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && timeSinceBomb <= 0)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::RShift) && timeSinceBomb <= 0)
 	{
 		timeSinceBomb = bombCooldown;
 
@@ -111,7 +111,6 @@ void Player::GoUp(const sf::Time & deltaTime, Map & map)
 	if (canGoUp)
 	{
 		position.y -= int(velocity.y * deltaTime.asSeconds());
-		playerState = movingUp;
 	}
 }
 
@@ -120,7 +119,6 @@ void Player::GoDown(const sf::Time & deltaTime, Map & map)
 	if (canGoDown)
 	{
 		position.y += int(velocity.y * deltaTime.asSeconds());
-		playerState = movingDown;
 	}
 }
 
@@ -155,9 +153,6 @@ void Player::UpdateSprite()
 {
 	switch (playerState)
 	{
-	case stand:
-		sprite.setScale(1.f, 1.f);
-		break;
 	case movingLeft:
 		sprite.setScale(-1.f, 1.f);
 		break;
@@ -261,11 +256,18 @@ void Player::SetPositionForLAN(int x, int y)
 	position.y = y;
 }
 
-void Player::GetPositionForLAN(std::string & data)
+void Player::GetDataForLAN(std::string & data)
 {
 	data += toString(this->position.x) + ' ' + toString(this->position.y) + ' '
-		+ toString(this->bombLocation.x) + ' ' + toString(this->bombLocation.y) + ' '
-		+ toString(this->IsKilled()) + '\0';
+		+ toString(this->playerState) + ' ' + toString(this->bombLocation.x) + ' ' 
+		+ toString(this->bombLocation.y) + ' ' + toString(this->IsKilled()) + '\0';
 	
-	//std::cout << data << std::endl;
+}
+
+void Player::SetMovingSate(bool direction)
+{
+	if (direction == 0)
+		this->playerState = movingLeft;
+	else if (direction == 1)
+		this->playerState = movingRight;
 }

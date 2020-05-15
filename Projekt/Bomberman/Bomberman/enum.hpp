@@ -1,6 +1,6 @@
 #pragma once
 
 
-enum States { stand, movingLeft, movingRight, movingUp, movingDown };
+enum States { movingLeft, movingRight };
 
 enum BlockType { solidBlock, breakableBlock, backgroundBlock, bombBlock, explosionBlock};
