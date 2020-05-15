@@ -39,7 +39,7 @@ public:
 	sa kolejne metody, zawiera glowna petle gry */
 	void Play();
 
-	void PlayLAN(char choice);
+	void PlayLAN();
 
 	/* Metoda przywracajaca stan gry do warunkow poczatkowych
 	(pozycje obu graczy, ponowne wczytanie planszy, wyzerowanie
