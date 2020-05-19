@@ -11,6 +11,7 @@
 #include "breakable_wall.hpp"
 #include "bomb.hpp"
 #include "end_game_screen.hpp"
+#include "main_menu.hpp"
 
 static bool gotConnection = false;
 
@@ -45,104 +46,112 @@ void Game::Draw()
 		endGameScreen.Draw(window);
 }
 
-//void Game::Play()
-//{
-//	sf::Clock clock;
-//	sf::Time time;
-//
-//	if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
-//	{
-//		std::cout << "Load failed! " << std::endl;
-//		getchar();
-//		return;
-//	}
-//	else
-//		endGameScreen.LoadFont(font);
-//
-//	////-------------- gracz 1 ---------------------------
-//	if (!player1.texture_p1.loadFromFile("res/img/character1.png"))
-//	{
-//		std::cout << "Load failed! " << std::endl;
-//		getchar();
-//		return;
-//	}
-//	//-------------- gracz 2 ---------------------------
-//	if (!player2.texture_p2.loadFromFile("res/img/character2.png"))
-//	{
-//		std::cout << "Load failed! " << std::endl;
-//		getchar();
-//		return;
-//	}
-//	//--------------------------------------------------
-//
-//	player1.LoadTexture(player1.texture_p1);
-//	player2.LoadTexture(player2.texture_p2);
-//	map.LoadFromFile();
-//	map.LoadTiles();
-//
-//	while (window.isOpen())
-//	{
-//		sf::Event event;
-//		while (window.pollEvent(event))
-//		{
-//			if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
-//				window.close();
-//
-//			if (isOver)
-//			{
-//				if (player2.IsKilled() && once)
-//				{
-//					player1.SaveToFile(true);
-//					player2.SaveToFile(false);
-//				}
-//				else if (player1.IsKilled() && once)
-//				{
-//					player2.SaveToFile(true);
-//					player1.SaveToFile(false);
-//				}
-//
-//				once = false;
-//
-//				if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R)
-//					PlayAgain();
-//				else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-//					window.close();
-//			}
-//		}
-//
-//		window.clear(sf::Color::Black);
-//		time = clock.restart();
-//
-//
-//		if (!isOver)
-//		{
-//			player1.MoveWSAD(time, map);
-//			player2.MoveArrows(time, map);
-//
-//			if (player1.IsKilled())
-//			{
-//				isOver = true;
-//				endGameScreen.DisplayPlayer1Win(false);
-//			}
-//			else if (player2.IsKilled())
-//			{
-//				isOver = true;
-//				endGameScreen.DisplayPlayer1Win(true);
-//			}
-//		}
-//
-//		Update(time);
-//
-//		Draw();
-//		window.display();
-//
-//	}
-//}
+void Game::Play()
+{
+	MainMenu menu;
+	
+
+	sf::Clock clock;
+	sf::Time time;
+
+	if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
+	{
+		std::cout << "Load failed! " << std::endl;
+		getchar();
+		return;
+	}
+	else
+		endGameScreen.LoadFont(font);
+
+	////-------------- gracz 1 ---------------------------
+	if (!player1.texture_p1.loadFromFile("res/img/character1.png"))
+	{
+		std::cout << "Load failed! " << std::endl;
+		getchar();
+		return;
+	}
+	//-------------- gracz 2 ---------------------------
+	if (!player2.texture_p2.loadFromFile("res/img/character2.png"))
+	{
+		std::cout << "Load failed! " << std::endl;
+		getchar();
+		return;
+	}
+	//--------------------------------------------------
+
+	player1.LoadTexture(player1.texture_p1);
+	player2.LoadTexture(player2.texture_p2);
+	map.LoadFromFile();
+	map.LoadTiles();
+
+	while (window.isOpen())
+	{
+		menu.Draw(window);
+		window.display();
+		std::getchar();
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
+				window.close();
+
+			if (isOver)
+			{
+				if (player2.IsKilled() && once)
+				{
+					player1.SaveToFile(true);
+					player2.SaveToFile(false);
+				}
+				else if (player1.IsKilled() && once)
+				{
+					player2.SaveToFile(true);
+					player1.SaveToFile(false);
+				}
+
+				once = false;
+
+				if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R)
+					PlayAgain();
+				else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+					window.close();
+			}
+		}
+
+		window.clear(sf::Color::Black);
+		time = clock.restart();
+
+
+		if (!isOver)
+		{
+			player1.MoveWSAD(time, map);
+			player2.MoveArrows(time, map);
+
+			if (player1.IsKilled())
+			{
+				isOver = true;
+				endGameScreen.DisplayPlayer1Win(false, true);
+			}
+			else if (player2.IsKilled())
+			{
+				isOver = true;
+				endGameScreen.DisplayPlayer1Win(true, true);
+			}
+		}
+
+		Update(time);
+
+		Draw();
+		window.display();
+
+	}
+}
 
 //-------------------LAN-------------------//
 
 void Game::PlayLAN()
 {
+	
+
 	// temporary
 	char choice;
 	std::cout << "s - server, c - client" << std::endl;

@@ -134,7 +134,7 @@
     <ClCompile Include="graphic_object.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
-    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="main_menu.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="solid_wall.cpp" />
     <ClCompile Include="wall.cpp" />
@@ -150,7 +150,7 @@
     <ClInclude Include="game.hpp" />
     <ClInclude Include="graphic_object.hpp" />
     <ClInclude Include="map.hpp" />
-    <ClInclude Include="menu.hpp" />
+    <ClInclude Include="main_menu.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="solid_wall.hpp" />
     <ClInclude Include="wall.hpp" />

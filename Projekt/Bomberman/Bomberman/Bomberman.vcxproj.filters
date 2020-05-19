@@ -54,7 +54,7 @@
     <ClCompile Include="end_game_screen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="menu.cpp">
+    <ClCompile Include="main_menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,7 +98,7 @@
     <ClInclude Include="end_game_screen.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="menu.hpp">
+    <ClInclude Include="main_menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

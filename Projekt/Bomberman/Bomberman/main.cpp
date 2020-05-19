@@ -4,16 +4,17 @@
 #include <SFML/Network.hpp>
 
 #include "game.hpp"
+#include "main_menu.hpp"
 
 int main()
 {
-	/*Game game;
-	game.Play();*/
+	Game game;
+	game.Play();
 
 	
 
-	Game newGame{};
-	newGame.PlayLAN();
+	/*Game newGame{};
+	newGame.PlayLAN();*/
 
 	return 0;
 }
