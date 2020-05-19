@@ -3,7 +3,11 @@
 
 #include "main_menu.hpp"
 
-MainMenu::MainMenu()
+#define FONT_SIZE 35
+#define X_POS 350
+#define Y_POS_BASE 250
+
+MainMenu::MainMenu(sf::RenderWindow & window)
 {
 	// to przemyslec
 	sf::Font font;
@@ -16,53 +20,58 @@ MainMenu::MainMenu()
 	else
 		this->LoadFont(font);
 
-	menuOptions[0].setString("Local");
-	menuOptions[0].setPosition(270, 200);
-	menuOptions[0].setCharacterSize(25);
+	menuOptions[0].setString("BOMBERMAN");
+	menuOptions[0].setPosition(220, 100);
+	menuOptions[0].setCharacterSize(80);
 
+	menuOptions[1].setString("Local");
+	menuOptions[1].setPosition(X_POS, Y_POS_BASE);
+	menuOptions[1].setCharacterSize(FONT_SIZE);
 
-	menuOptions[1].setString("LAN");
-	menuOptions[1].setPosition(270, 250);
-	menuOptions[1].setCharacterSize(25);
+	menuOptions[2].setString("LAN");
+	menuOptions[2].setPosition(X_POS, Y_POS_BASE + 50);
+	menuOptions[2].setCharacterSize(FONT_SIZE);
 
-	menuOptions[2].setString("Statistics");
-	menuOptions[2].setPosition(270, 300);
-	menuOptions[2].setCharacterSize(25);
+	menuOptions[3].setString("Statistics");
+	menuOptions[3].setPosition(X_POS, Y_POS_BASE + 100);
+	menuOptions[3].setCharacterSize(FONT_SIZE);
 
-	menuOptions[3].setString("Map Select");
-	menuOptions[3].setPosition(270, 350);
-	menuOptions[3].setCharacterSize(25);
+	menuOptions[4].setString("Map Select");
+	menuOptions[4].setPosition(X_POS, Y_POS_BASE + 150);
+	menuOptions[4].setCharacterSize(FONT_SIZE);
 
-	menuOptions[4].setString("Exit");
-	menuOptions[4].setPosition(270, 400);
-	menuOptions[4].setCharacterSize(25);
+	menuOptions[5].setString("Exit");
+	menuOptions[5].setPosition(X_POS, Y_POS_BASE + 200);
+	menuOptions[5].setCharacterSize(FONT_SIZE);
 
+	menuOptions[6].setString(">");
+	menuOptions[6].setPosition(X_POS - 40, Y_POS_BASE);
+	menuOptions[6].setCharacterSize(FONT_SIZE);
+
+	this->Draw(window);
 }
 
 void MainMenu::Draw(sf::RenderWindow & window)
 {
-	window.draw(menuOptions[0]);
-	window.draw(menuOptions[1]);
-	window.draw(menuOptions[2]);
-	window.draw(menuOptions[3]);
-	window.draw(menuOptions[4]);
-
-	/*for (auto element : menuOptions)
+	for (auto element : menuOptions)
 	{
 		window.draw(element);
-	}*/
+	}
 }
 
 void MainMenu::LoadFont(const sf::Font & font)
 {
-	menuOptions[0].setFont(font);
-	menuOptions[1].setFont(font);
-	menuOptions[2].setFont(font);
-	menuOptions[3].setFont(font);
-	menuOptions[4].setFont(font);
-
-	/*for (auto element : menuOptions)
+	for (int i = 0; i < 7; i++)
 	{
-		element.setFont(font);
-	}*/
+		menuOptions[i].setFont(font);
+	}
+}
+
+void MainMenu::MoveUp()
+{
+	
+}
+
+void MainMenu::MoveDown()
+{
 }

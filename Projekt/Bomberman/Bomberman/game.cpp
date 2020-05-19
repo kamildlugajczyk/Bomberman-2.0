@@ -17,12 +17,6 @@ static bool gotConnection = false;
 
 Game::Game()
 {
-	windowSize.x = 960;
-	windowSize.y = 700;
-	window.create(sf::VideoMode(windowSize.x, windowSize.y), "Bomberman");
-
-	window.setFramerateLimit(60);
-
 	player1.SetPosition(sf::Vector2f(96, 96));
 	player2.SetPosition(sf::Vector2f(864, 604));
 
@@ -36,7 +30,7 @@ void Game::Update(const sf::Time deltaTime)
 	player2.Update(deltaTime);
 }
 
-void Game::Draw()
+void Game::Draw(sf::RenderWindow & window)
 {
 	map.Draw(window);
 	player1.Draw(window);
@@ -46,11 +40,8 @@ void Game::Draw()
 		endGameScreen.Draw(window);
 }
 
-void Game::Play()
+void Game::Play(sf::RenderWindow & window)
 {
-	MainMenu menu;
-	
-
 	sf::Clock clock;
 	sf::Time time;
 
@@ -86,9 +77,6 @@ void Game::Play()
 
 	while (window.isOpen())
 	{
-		menu.Draw(window);
-		window.display();
-		std::getchar();
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -140,7 +128,7 @@ void Game::Play()
 
 		Update(time);
 
-		Draw();
+		Draw(window);
 		window.display();
 
 	}
@@ -148,7 +136,7 @@ void Game::Play()
 
 //-------------------LAN-------------------//
 
-void Game::PlayLAN()
+void Game::PlayLAN(sf::RenderWindow & window)
 {
 	
 
@@ -302,7 +290,7 @@ void Game::PlayLAN()
 				}
 			}
 			Update(time);
-			Draw();
+			Draw(window);
 			window.display();
 		}
 	}
@@ -394,7 +382,7 @@ void Game::PlayLAN()
 				}
 			}
 			Update(time);
-			Draw();
+			Draw(window);
 			window.display();
 		}
 	}

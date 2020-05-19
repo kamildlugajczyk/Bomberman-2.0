@@ -9,8 +9,6 @@
 
 class Game
 {
-	sf::RenderWindow window;										// okno gry
-	sf::Vector2f windowSize;										// rozmiar okna gry
 	Player player1{"Player 1"};										// gracz 1
 	Player player2{"Player 2"};										// gracz 2
 	Map map;														// mapa gry
@@ -33,13 +31,13 @@ public:
 	/* Metoda wywolujaca kolejne metody tj. draw dla mapy oraz
 	dla obu graczy oraz jesli gra sie skonczyla to draw dla
 	widoku konca gry */
-	void Draw();
+	void Draw(sf::RenderWindow & window);
 
 	/* Glowna metoda zawieraja cala logike gry w ktorej wywolywane
 	sa kolejne metody, zawiera glowna petle gry */
-	void Play();
+	void Play(sf::RenderWindow & window);
 
-	void PlayLAN();
+	void PlayLAN(sf::RenderWindow & window);
 
 	/* Metoda przywracajaca stan gry do warunkow poczatkowych
 	(pozycje obu graczy, ponowne wczytanie planszy, wyzerowanie
