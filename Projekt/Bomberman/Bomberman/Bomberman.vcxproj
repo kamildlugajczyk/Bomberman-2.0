@@ -132,6 +132,7 @@
     <ClCompile Include="explosion.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="graphic_object.cpp" />
+    <ClCompile Include="lan_menu.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="main_menu.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="explosion.hpp" />
     <ClInclude Include="game.hpp" />
     <ClInclude Include="graphic_object.hpp" />
+    <ClInclude Include="lan_menu.hpp" />
     <ClInclude Include="map.hpp" />
     <ClInclude Include="main_menu.hpp" />
     <ClInclude Include="player.hpp" />
