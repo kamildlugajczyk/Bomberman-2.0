@@ -22,31 +22,62 @@ int main()
 	window.setFramerateLimit(60);
 	window.clear(sf::Color(42, 42, 42));
 
-	int i = 0;
-	bool choice[16] = {true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false};
 
-	while (true)
+	
+	LanMenu lanMenu{};
+
+	while (window.isOpen())
 	{
+		MainMenu menu{};
+		sf::Event event;
+
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case sf::Event::KeyReleased:
+				switch (event.key.code)
+				{
+				case sf::Keyboard::Up:
+					menu.MoveUp();
+					break;
+
+				case sf::Keyboard::Down:
+					menu.MoveDown();
+					break;
+
+				case sf::Keyboard::Return:
+					switch (menu.GetPressedItem())
+					{
+					case 0:
+						
+						break;
+					case 1:
+						std::cout << "Option button has been pressed" << std::endl;
+						break;
+					case 2:
+						window.close();
+						break;
+					}
+
+					break;
+				}
+
+				break;
+			case sf::Event::Closed:
+				window.close();
+
+				break;
+
+			}
+		}
+
 		window.clear(sf::Color(42, 42, 42));
 
-		if (choice[i] == true)
-		{
-			MainMenu menu{};
-			menu.Draw(window);
-		}
-		else
-		{
-			LanMenu lan{ };
-			lan.Draw(window);
-		}
+		//menu.draw(window);
 
-		i++;
 		window.display();
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	}
-	
-
-	
 
 	/*Game game;
 	game.Play(window);*/

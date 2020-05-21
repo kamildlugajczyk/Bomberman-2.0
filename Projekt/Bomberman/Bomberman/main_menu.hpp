@@ -10,8 +10,11 @@
 
 class MainMenu
 {
-	sf::Text menuOptions[OPTION_AMOUNT + 2];
+	sf::Text menuOptions[OPTION_AMOUNT];
+	sf::Text logo;
+	sf::Text indicator;
 
+	int selectedItemIndex;
 public:
 
 	MainMenu();
@@ -23,4 +26,6 @@ public:
 	void MoveUp();
 
 	void MoveDown();
+
+	int GetPressedItem() { return selectedItemIndex; }
 };
