@@ -25,10 +25,10 @@ int main()
 
 	
 	LanMenu lanMenu{};
+	MainMenu menu{};
 
 	while (window.isOpen())
 	{
-		MainMenu menu{};
 		sf::Event event;
 
 		while (window.pollEvent(event))
@@ -39,11 +39,11 @@ int main()
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Up:
-					menu.MoveUp();
+					menu.MoveUp(window);
 					break;
 
 				case sf::Keyboard::Down:
-					menu.MoveDown();
+					menu.MoveDown(window);
 					break;
 
 				case sf::Keyboard::Return:
@@ -74,7 +74,7 @@ int main()
 
 		window.clear(sf::Color(42, 42, 42));
 
-		//menu.draw(window);
+		menu.Draw(window);
 
 		window.display();
 	}

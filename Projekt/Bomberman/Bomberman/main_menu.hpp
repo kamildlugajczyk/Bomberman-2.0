@@ -23,9 +23,9 @@ public:
 
 	void LoadFont(const sf::Font & font);
 
-	void MoveUp();
+	void MoveUp(sf::RenderWindow & window);
 
-	void MoveDown();
+	void MoveDown(sf::RenderWindow & window);
 
 	int GetPressedItem() { return selectedItemIndex; }
 };

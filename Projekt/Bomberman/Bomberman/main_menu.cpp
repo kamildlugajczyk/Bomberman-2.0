@@ -4,9 +4,7 @@
 #include "main_menu.hpp"
 
 MainMenu::MainMenu()
-{
-
-}
+	: selectedItemIndex(0) {};
 
 void MainMenu::Draw(sf::RenderWindow & window)
 {
@@ -48,7 +46,6 @@ void MainMenu::Draw(sf::RenderWindow & window)
 	menuOptions[4].setCharacterSize(FONT_SIZE);
 
 	indicator.setString(">");
-	indicator.setPosition(X_POS - 40, Y_POS_BASE);
 	indicator.setCharacterSize(FONT_SIZE);
 
 	window.draw(logo);
@@ -69,20 +66,20 @@ void MainMenu::LoadFont(const sf::Font & font)
 	indicator.setFont(font);
 }
 
-void MainMenu::MoveUp()
+void MainMenu::MoveUp(sf::RenderWindow & window)
 {
 	if (selectedItemIndex - 1 >= 0)
 	{
-		indicator.setPosition(menuOptions[selectedItemIndex].getPosition().x - 40, menuOptions[selectedItemIndex].getPosition().y);
+		indicator.setPosition(menuOptions[selectedItemIndex - 1].getPosition().x - 40, menuOptions[selectedItemIndex - 1].getPosition().y);
 		selectedItemIndex--;
 	}
 }
 
-void MainMenu::MoveDown()
+void MainMenu::MoveDown(sf::RenderWindow & window)
 {
 	if (selectedItemIndex + 1 < OPTION_AMOUNT)
 	{
-		indicator.setPosition(menuOptions[selectedItemIndex].getPosition().x - 40, menuOptions[selectedItemIndex].getPosition().y);
+		indicator.setPosition(menuOptions[selectedItemIndex + 1].getPosition().x - 40, menuOptions[selectedItemIndex + 1].getPosition().y);
 		selectedItemIndex++;
 	}
 }
