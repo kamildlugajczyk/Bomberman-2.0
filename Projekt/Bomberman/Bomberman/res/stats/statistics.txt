@@ -468,3 +468,13 @@
 	Player 1 wins!
 	 -Player 1 planted 0 bomb(s)
 	 -Player 2 planted 1 bomb(s)
+
+ 21.5.2020		23:35:14
+	Player 2 wins!
+	 -Player 2 planted 7 bomb(s)
+	 -Player 1 planted 2 bomb(s)
+
+ 21.5.2020		23:36:12
+	Player 1 wins!
+	 -Player 1 planted 10 bomb(s)
+	 -Player 2 planted 9 bomb(s)

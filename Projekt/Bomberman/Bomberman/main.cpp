@@ -24,7 +24,7 @@ int main()
 
 
 	
-	LanMenu lanMenu{};
+	
 	MainMenu menu{};
 
 	while (window.isOpen())
@@ -50,14 +50,33 @@ int main()
 					switch (menu.GetPressedItem())
 					{
 					case 0:
-						
+					{
+						Game game;
+						game.Play(window);
 						break;
+					}
 					case 1:
-						std::cout << "Option button has been pressed" << std::endl;
+					{
+						LanMenu lanMenu{};
+						lanMenu.Draw(window);
+						/*Game newGame{};
+						newGame.PlayLAN(window);*/
 						break;
+					}
 					case 2:
-						window.close();
+					{
+						std::cout << "Wejdz do res/stats/statistics.txt\n";
 						break;
+					}
+					case 3:
+					{
+						std::cout << "Jest tylko jedna mapa\n";
+						break;
+					}
+					case 4:
+						window.close();
+						break; 
+							
 					}
 
 					break;
@@ -79,10 +98,8 @@ int main()
 		window.display();
 	}
 
-	/*Game game;
-	game.Play(window);*/
-	/*Game newGame{};
-	newGame.PlayLAN();*/
+	
+	
 
 	std::getchar();
 	return 0;

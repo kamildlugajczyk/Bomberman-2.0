@@ -4,7 +4,10 @@
 #include "main_menu.hpp"
 
 MainMenu::MainMenu()
-	: selectedItemIndex(0) {};
+	: selectedItemIndex(0) 
+{
+	indicator.setPosition(310, 250);
+}
 
 void MainMenu::Draw(sf::RenderWindow & window)
 {
