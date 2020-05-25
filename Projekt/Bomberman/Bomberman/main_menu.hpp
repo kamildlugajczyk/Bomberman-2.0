@@ -5,14 +5,14 @@
 
 #include "game.hpp"
 
-#define OPTION_AMOUNT 5
+#define OPTION_AMOUNT_MAIN 5
 #define FONT_SIZE 35
 #define X_POS 350
 #define Y_POS_BASE 250
 
 class MainMenu
 {
-	sf::Text menuOptions[OPTION_AMOUNT];
+	sf::Text menuOptions[OPTION_AMOUNT_MAIN];
 	sf::Text logo;
 	sf::Text indicator;
 
@@ -31,5 +31,5 @@ public:
 
 	int GetPressedItem() { return selectedItemIndex; }
 
-	void ShowMenu(sf::RenderWindow & window);
+	void ShowMenu(sf::RenderWindow & window, bool & selectedLan);
 };

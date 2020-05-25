@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "main_menu.hpp"
+#include "lan_menu.hpp"
 
 MainMenu::MainMenu()
 	: selectedItemIndex(0) 
@@ -52,7 +53,7 @@ void MainMenu::Draw(sf::RenderWindow & window)
 	indicator.setCharacterSize(FONT_SIZE);
 
 	window.draw(logo);
-	for (int i = 0; i < OPTION_AMOUNT; i++)
+	for (int i = 0; i < OPTION_AMOUNT_MAIN; i++)
 	{
 		window.draw(menuOptions[i]);
 	}
@@ -62,7 +63,7 @@ void MainMenu::Draw(sf::RenderWindow & window)
 void MainMenu::LoadFont(const sf::Font & font)
 {
 	logo.setFont(font);
-	for (int i = 0; i < OPTION_AMOUNT + 2; i++)
+	for (int i = 0; i < OPTION_AMOUNT_MAIN + 2; i++)
 	{
 		menuOptions[i].setFont(font);
 	}
@@ -80,14 +81,14 @@ void MainMenu::MoveUp(sf::RenderWindow & window)
 
 void MainMenu::MoveDown(sf::RenderWindow & window)
 {
-	if (selectedItemIndex + 1 < OPTION_AMOUNT)
+	if (selectedItemIndex + 1 < OPTION_AMOUNT_MAIN)
 	{
 		indicator.setPosition(menuOptions[selectedItemIndex + 1].getPosition().x - 40, menuOptions[selectedItemIndex + 1].getPosition().y);
 		selectedItemIndex++;
 	}
 }
 
-void MainMenu::ShowMenu(sf::RenderWindow & window)
+void MainMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 {
 	sf::Event event;
 	while (window.pollEvent(event))
@@ -116,10 +117,7 @@ void MainMenu::ShowMenu(sf::RenderWindow & window)
 				}
 				case 1:
 				{
-					/*LanMenu lanMenu{};
-					lanMenu.Draw(window);*/
-					/*Game newGame{};
-					newGame.PlayLAN(window);*/
+					selectedLan = true;
 					break;
 				}
 				case 2:

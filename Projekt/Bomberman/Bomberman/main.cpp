@@ -16,6 +16,8 @@ int main()
 	sf::RenderWindow window;										// okno gry
 	sf::Vector2f windowSize;										// rozmiar okna gry
 
+	bool selectedLan = false;
+
 	windowSize.x = 960;
 	windowSize.y = 700;
 	window.create(sf::VideoMode(windowSize.x, windowSize.y), "Bomberman");
@@ -26,16 +28,23 @@ int main()
 	
 	
 	MainMenu menu{};
+	LanMenu lanMenu{};
 	//Game game{};
 
 	while (window.isOpen())
 	{
-		
-		menu.ShowMenu(window);
-
-		window.clear(sf::Color(42, 42, 42));
-
-		menu.Draw(window);
+		if (!selectedLan)
+		{
+			menu.ShowMenu(window, selectedLan);
+			window.clear(sf::Color(42, 42, 42));
+			menu.Draw(window);
+		}
+		else
+		{
+			lanMenu.ShowMenu(window, selectedLan);
+			window.clear(sf::Color(42, 42, 42));
+			lanMenu.Draw(window);
+		}
 
 		window.display();
 	}

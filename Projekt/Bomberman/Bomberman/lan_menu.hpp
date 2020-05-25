@@ -5,11 +5,15 @@
 
 #include "main_menu.hpp"
 
-#define OPTION_AMOUNT 3
+#define OPTION_AMOUNT_LAN 3
 
 class LanMenu : public MainMenu
 {
-	sf::Text menuOptions[5];
+	sf::Text menuOptions[OPTION_AMOUNT_LAN];
+	sf::Text logo;
+	sf::Text indicator;
+
+	int selectedItemIndex;
 
 public:
 
@@ -19,4 +23,11 @@ public:
 
 	void LoadFont(const sf::Font & font);
 
+	void MoveUp(sf::RenderWindow & window);
+
+	void MoveDown(sf::RenderWindow & window);
+
+	int GetPressedItem() { return selectedItemIndex; }
+
+	void ShowMenu(sf::RenderWindow & window, bool & selectedLan);
 };

@@ -5,7 +5,9 @@
 
 
 LanMenu::LanMenu()
+	: selectedItemIndex(0)
 {
+	indicator.setPosition(310, 250);
 }
 
 void LanMenu::Draw(sf::RenderWindow & window)
@@ -21,38 +23,111 @@ void LanMenu::Draw(sf::RenderWindow & window)
 	else
 		this->LoadFont(font);
 
-	menuOptions[0].setString("LAN");
-	menuOptions[0].setPosition(280, 100);
-	menuOptions[0].setCharacterSize(80);
+	logo.setString("LAN");
+	logo.setPosition(280, 100);
+	logo.setCharacterSize(80);
 	//menuOptions[0].setOutlineColor(sf::Color::Red);
 	//menuOptions[0].setOutlineThickness(3.0);
 
-	menuOptions[1].setString("Host game");
-	menuOptions[1].setPosition(X_POS, Y_POS_BASE);
+	menuOptions[0].setString("Host game");
+	menuOptions[0].setPosition(X_POS, Y_POS_BASE);
+	menuOptions[0].setCharacterSize(FONT_SIZE);
+
+	menuOptions[1].setString("Join game");
+	menuOptions[1].setPosition(X_POS, Y_POS_BASE + 50);
 	menuOptions[1].setCharacterSize(FONT_SIZE);
 
-	menuOptions[2].setString("Join game");
-	menuOptions[2].setPosition(X_POS, Y_POS_BASE + 50);
+	menuOptions[2].setString("Back");
+	menuOptions[2].setPosition(X_POS, Y_POS_BASE + 100);
 	menuOptions[2].setCharacterSize(FONT_SIZE);
 
-	menuOptions[3].setString("Back");
-	menuOptions[3].setPosition(X_POS, Y_POS_BASE + 100);
-	menuOptions[3].setCharacterSize(FONT_SIZE);
+	indicator.setString(">");
+	indicator.setCharacterSize(FONT_SIZE);
 
-	menuOptions[4].setString(">");
-	menuOptions[4].setPosition(X_POS - 40, Y_POS_BASE);
-	menuOptions[4].setCharacterSize(FONT_SIZE);
-
-	for (int i = 0; i < OPTION_AMOUNT + 2; i++)
+	window.draw(logo);
+	for (int i = 0; i < OPTION_AMOUNT_LAN; i++)
 	{
 		window.draw(menuOptions[i]);
 	}
+	window.draw(indicator);
 }
 
 void LanMenu::LoadFont(const sf::Font & font)
 {
-	for (int i = 0; i < OPTION_AMOUNT + 2; i++)
+	logo.setFont(font);
+	for (int i = 0; i < OPTION_AMOUNT_LAN; i++)
 	{
 		menuOptions[i].setFont(font);
+	}
+	indicator.setFont(font);
+}
+
+void LanMenu::MoveUp(sf::RenderWindow & window)
+{
+	if (selectedItemIndex - 1 >= 0)
+	{
+		indicator.setPosition(menuOptions[selectedItemIndex - 1].getPosition().x - 40, menuOptions[selectedItemIndex - 1].getPosition().y);
+		selectedItemIndex--;
+	}
+}
+
+void LanMenu::MoveDown(sf::RenderWindow & window)
+{
+	if (selectedItemIndex + 1 < OPTION_AMOUNT_LAN)
+	{
+		indicator.setPosition(menuOptions[selectedItemIndex + 1].getPosition().x - 40, menuOptions[selectedItemIndex + 1].getPosition().y);
+		selectedItemIndex++;
+	}
+}
+
+void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
+{
+	sf::Event event;
+	while (window.pollEvent(event))
+	{
+		switch (event.type)
+		{
+		case sf::Event::KeyReleased:
+			switch (event.key.code)
+			{
+			case sf::Keyboard::Up:
+				this->MoveUp(window);
+				break;
+
+			case sf::Keyboard::Down:
+				this->MoveDown(window);
+				break;
+
+			case sf::Keyboard::Return:
+				switch (this->GetPressedItem())
+				{
+				case 0:
+				{
+					Game game{};
+					game.PlayLAN(window);			// as server
+					break;
+				}
+				case 1:
+				{
+					Game game{};
+					game.PlayLAN(window);			// as client
+					break;
+				}
+				case 2:
+				{
+					selectedLan = false;
+					break;
+				}
+
+				break;
+				}
+
+				break;
+			case sf::Event::Closed:
+				window.close();
+
+				break;
+			}
+		}
 	}
 }
