@@ -136,17 +136,8 @@ void Game::Play(sf::RenderWindow & window)
 
 //-------------------LAN-------------------//
 
-void Game::PlayLAN(sf::RenderWindow & window)
+void Game::PlayLAN(sf::RenderWindow & window, bool asServer)
 {
-	
-
-	// temporary
-	char choice;
-	std::cout << "s - server, c - client" << std::endl;
-	std::cin >> choice;
-	//------------
-
-
 	sf::Clock clock;
 	sf::Time time;
 
@@ -158,14 +149,14 @@ void Game::PlayLAN(sf::RenderWindow & window)
 	std::size_t received;
 	char buffer[2000];
 
-	if (choice == 'c')
+	if (!asServer)
 	{
 		//std::cout << "Podaj adres servera: \n";
 		//std::cin >> ip;
 
 		socket.connect(ip, 53000);
 	}
-	else if (choice == 's')
+	else if (asServer)
 	{
 		sf::TcpListener listener;
 		listener.listen(53000);
@@ -207,7 +198,7 @@ void Game::PlayLAN(sf::RenderWindow & window)
 	map.LoadTiles();
 
 	
-	if (choice == 's')
+	if (asServer)
 	{
 		while (window.isOpen())
 		{
@@ -294,7 +285,7 @@ void Game::PlayLAN(sf::RenderWindow & window)
 			window.display();
 		}
 	}
-	else if (choice == 'c')
+	else if (!asServer)
 	{
 		while (window.isOpen())
 		{

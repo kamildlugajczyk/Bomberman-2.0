@@ -104,13 +104,13 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 				case 0:
 				{
 					Game game{};
-					game.PlayLAN(window);			// as server
+					game.PlayLAN(window, true);			// as server
 					break;
 				}
 				case 1:
 				{
 					Game game{};
-					game.PlayLAN(window);			// as client
+					game.PlayLAN(window, false);			// as client
 					break;
 				}
 				case 2:
