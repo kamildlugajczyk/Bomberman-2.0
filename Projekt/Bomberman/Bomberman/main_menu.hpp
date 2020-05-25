@@ -3,6 +3,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#include "game.hpp"
+
 #define OPTION_AMOUNT 5
 #define FONT_SIZE 35
 #define X_POS 350
@@ -28,4 +30,6 @@ public:
 	void MoveDown(sf::RenderWindow & window);
 
 	int GetPressedItem() { return selectedItemIndex; }
+
+	void ShowMenu(sf::RenderWindow & window);
 };

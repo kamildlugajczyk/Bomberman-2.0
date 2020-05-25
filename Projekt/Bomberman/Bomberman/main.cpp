@@ -26,70 +26,12 @@ int main()
 	
 	
 	MainMenu menu{};
+	//Game game{};
 
 	while (window.isOpen())
 	{
-		sf::Event event;
-
-		while (window.pollEvent(event))
-		{
-			switch (event.type)
-			{
-			case sf::Event::KeyReleased:
-				switch (event.key.code)
-				{
-				case sf::Keyboard::Up:
-					menu.MoveUp(window);
-					break;
-
-				case sf::Keyboard::Down:
-					menu.MoveDown(window);
-					break;
-
-				case sf::Keyboard::Return:
-					switch (menu.GetPressedItem())
-					{
-					case 0:
-					{
-						Game game;
-						game.Play(window);
-						break;
-					}
-					case 1:
-					{
-						LanMenu lanMenu{};
-						lanMenu.Draw(window);
-						/*Game newGame{};
-						newGame.PlayLAN(window);*/
-						break;
-					}
-					case 2:
-					{
-						std::cout << "Wejdz do res/stats/statistics.txt\n";
-						break;
-					}
-					case 3:
-					{
-						std::cout << "Jest tylko jedna mapa\n";
-						break;
-					}
-					case 4:
-						window.close();
-						break; 
-							
-					}
-
-					break;
-				}
-
-				break;
-			case sf::Event::Closed:
-				window.close();
-
-				break;
-
-			}
-		}
+		
+		menu.ShowMenu(window);
 
 		window.clear(sf::Color(42, 42, 42));
 

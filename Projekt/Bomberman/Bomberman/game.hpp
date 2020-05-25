@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
+
 
 #include "player.hpp"
 #include "map.hpp"
