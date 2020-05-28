@@ -101,56 +101,72 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 	{
 		switch (event.type)
 		{
-		case sf::Event::KeyReleased:
-			switch (event.key.code)
-			{
-			case sf::Keyboard::Up:
-				this->MoveUp(window);
-				break;
+		//case sf::Event::KeyReleased:
+		//	switch (event.key.code)
+		//	{
+		//	case sf::Keyboard::Up:
+		//		this->MoveUp(window);
+		//		break;
 
-			case sf::Keyboard::Down:
-				this->MoveDown(window);
-				break;
-			case sf::Keyboard::Return:
-				switch (this->GetPressedItem())
-				{
-				case 0:
-				{
-					box.SetSelected(false);
+		//	case sf::Keyboard::Down:
+		//		this->MoveDown(window);
+		//		break;
+		//	case sf::Keyboard::Return:
+		//		switch (this->GetPressedItem())
+		//		{
+		//		case 0:
+		//		{
+		//			//box.SetSelected(false);
 
-					Game game{};
-					game.PlayLAN(window, true);			// as server
-					break;
-				}
-				case 1:
-				{
-					box.SetSelected(false);
+		//			Game game{};
+		//			game.PlayLAN(window, true);			// as server
+		//			break;
+		//		}
+		//		case 1:
+		//		{
+		//			//box.SetSelected(false);
 
-					Game game{};
-					game.PlayLAN(window, false);			// as client
-					break;
-				}
-				case 2:
-				{
-					box.SetSelected(true);
-					break;
-				}
-				case 3:
-				{
-					box.SetSelected(false);
+		//			Game game{};
+		//			game.PlayLAN(window, false);			// as client
+		//			break;
+		//		}
+		//		case 2:
+		//		{
+		//				box.SetSelected(true);
+		//			
+		//			break;
+		//		}
+		//		case 3:
+		//		{
+		//			//box.SetSelected(false);
 
-					selectedLan = false;
-					break;
-				}
-				break;
-				}
-				break;
-			case sf::Event::Closed:
-				window.close();
-				break;
-			}
+		//			selectedLan = false;
+		//			break;
+		//		}
+		//		break;
+		//		}
+		//		break;
+		//	case sf::Event::Closed:
+		//		window.close();
+		//		break;
+		//	}
 		case sf::Event::TextEntered:
-			box.typedOn(event);
+			/*if (box.isSelected)
+			{*/
+				int charTyped = event.text.unicode;
+
+				if (charTyped < 128)
+				{
+					if (box.text.str().length() <= box.limit)
+					{
+						box.inputLogic(charTyped);
+					}
+					else if (box.text.str().length() > box.limit && charTyped == DELETE_KEY)
+					{
+						box.deleteLastChar();
+					}
+				}
+			//}
 			break;
 		}
 	}

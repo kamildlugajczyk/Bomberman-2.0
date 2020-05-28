@@ -19,8 +19,6 @@ public:
 
 	void Draw(sf::RenderWindow &window);
 
-	void typedOn(sf::Event input);
-
 	void LoadFont(const sf::Font & font);
 
 

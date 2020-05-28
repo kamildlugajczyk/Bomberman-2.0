@@ -5,7 +5,7 @@
 #include "textbox.hpp"
 
 Textbox::Textbox()
-	: isSelected(false), limit(15)
+	: isSelected(false), limit(100)
 {
 	textbox.setPosition(350, 300);
 	textbox.setCharacterSize(80);
@@ -52,26 +52,6 @@ void Textbox::Draw(sf::RenderWindow & window)
 	window.draw(textbox);
 }
 
-void Textbox::typedOn(sf::Event input)
-{
-	if (isSelected) 
-	{
-		int charTyped = input.text.unicode;
-
-		if (charTyped < 128) 
-		{
-			if (text.str().length() <= limit) 
-			{
-				inputLogic(charTyped);
-			}
-			else if (text.str().length() > limit && charTyped == DELETE_KEY) 
-			{
-				deleteLastChar();
-			}
-		}
-	}
-}
-
 void Textbox::LoadFont(const sf::Font & font)
 {
 	textbox.setFont(font);
@@ -93,7 +73,7 @@ void Textbox::deleteLastChar()
 void Textbox::inputLogic(int charTyped)
 {
 	// If the key pressed isn't delete, or the two selection keys, then append the text with the char:
-	if (charTyped != DELETE_KEY && charTyped != ENTER_KEY && charTyped != ESCAPE_KEY) 
+	if (charTyped != DELETE_KEY /*&& charTyped != ENTER_KEY && charTyped != ESCAPE_KEY*/) 
 	{
 		text << static_cast<char>(charTyped);
 	}
