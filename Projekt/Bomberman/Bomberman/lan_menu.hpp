@@ -6,13 +6,14 @@
 #include "main_menu.hpp"
 #include "textbox.hpp"
 
-#define OPTION_AMOUNT_LAN 3
+#define OPTION_AMOUNT_LAN 4
 
 class LanMenu : public MainMenu
 {
 	sf::Text menuOptions[OPTION_AMOUNT_LAN];
 	sf::Text logo;
 	sf::Text indicator;
+	Textbox box;
 
 
 	int selectedItemIndex;

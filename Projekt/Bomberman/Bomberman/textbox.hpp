@@ -34,4 +34,6 @@ private:
 	void deleteLastChar();
 
 	void inputLogic(int charTyped);
+
+	friend class LanMenu;
 };

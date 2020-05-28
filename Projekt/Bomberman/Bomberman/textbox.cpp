@@ -20,10 +20,12 @@ void Textbox::SetSelected(bool sel)
 {
 	isSelected = sel;
 
-	if (!sel) {
+	if (!sel) 
+	{
 		std::string t = text.str();
 		std::string newT = "";
-		for (int i = 0; i < t.length(); i++) {
+		for (int i = 0; i < t.length(); i++) 
+		{
 			newT += t[i];
 		}
 		textbox.setString(newT);
@@ -52,14 +54,18 @@ void Textbox::Draw(sf::RenderWindow & window)
 
 void Textbox::typedOn(sf::Event input)
 {
-	if (isSelected) {
+	if (isSelected) 
+	{
 		int charTyped = input.text.unicode;
 
-		if (charTyped < 128) {
-			if (text.str().length() <= limit) {
+		if (charTyped < 128) 
+		{
+			if (text.str().length() <= limit) 
+			{
 				inputLogic(charTyped);
 			}
-			else if (text.str().length() > limit && charTyped == DELETE_KEY) {
+			else if (text.str().length() > limit && charTyped == DELETE_KEY) 
+			{
 				deleteLastChar();
 			}
 		}
@@ -75,7 +81,8 @@ void Textbox::deleteLastChar()
 {
 	std::string t = text.str();
 	std::string newT = "";
-	for (int i = 0; i < t.length() - 1; i++) {
+	for (int i = 0; i < t.length() - 1; i++) 
+	{
 		newT += t[i];
 	}
 	text.str("");
@@ -86,12 +93,15 @@ void Textbox::deleteLastChar()
 void Textbox::inputLogic(int charTyped)
 {
 	// If the key pressed isn't delete, or the two selection keys, then append the text with the char:
-	if (charTyped != DELETE_KEY/* && charTyped != ENTER_KEY && charTyped != ESCAPE_KEY*/) {
+	if (charTyped != DELETE_KEY && charTyped != ENTER_KEY && charTyped != ESCAPE_KEY) 
+	{
 		text << static_cast<char>(charTyped);
 	}
 	// If the key is delete, then delete the char:
-	else if (charTyped == DELETE_KEY) {
-		if (text.str().length() > 0) {
+	else if (charTyped == DELETE_KEY) 
+	{
+		if (text.str().length() > 0) 
+		{
 			deleteLastChar();
 		}
 	}

@@ -35,12 +35,20 @@ void LanMenu::Draw(sf::RenderWindow & window)
 	menuOptions[0].setCharacterSize(FONT_SIZE);
 
 	menuOptions[1].setString("Join game");
-	menuOptions[1].setPosition(X_POS, Y_POS_BASE + 100);
+	menuOptions[1].setPosition(X_POS, Y_POS_BASE + 50);
 	menuOptions[1].setCharacterSize(FONT_SIZE);
 
-	menuOptions[2].setString("Back");
-	menuOptions[2].setPosition(X_POS, Y_POS_BASE + 150);
+	menuOptions[2].setString("IP: ");
+	menuOptions[2].setPosition(X_POS + 40, Y_POS_BASE + 100);
 	menuOptions[2].setCharacterSize(FONT_SIZE);
+
+	box.textbox.setPosition(X_POS + 100, Y_POS_BASE + 100);
+	box.textbox.setCharacterSize(FONT_SIZE);
+	//box.textbox.setString("192.168.1.1");
+
+	menuOptions[3].setString("Back");
+	menuOptions[3].setPosition(X_POS, Y_POS_BASE + 150);
+	menuOptions[3].setCharacterSize(FONT_SIZE);
 
 	indicator.setString(">");
 	indicator.setCharacterSize(FONT_SIZE);
@@ -54,6 +62,7 @@ void LanMenu::Draw(sf::RenderWindow & window)
 		window.draw(menuOptions[i]);
 	}
 	window.draw(indicator);
+	box.Draw(window);
 	
 }
 
@@ -102,41 +111,47 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 			case sf::Keyboard::Down:
 				this->MoveDown(window);
 				break;
-
 			case sf::Keyboard::Return:
 				switch (this->GetPressedItem())
 				{
 				case 0:
 				{
+					box.SetSelected(false);
+
 					Game game{};
 					game.PlayLAN(window, true);			// as server
 					break;
 				}
 				case 1:
 				{
-					Textbox textbox{};
-					textbox.SetSelected(true);
-					textbox.Draw(window);
+					box.SetSelected(false);
 
-					//Game game{};
-					//game.PlayLAN(window, false);			// as client
+					Game game{};
+					game.PlayLAN(window, false);			// as client
 					break;
 				}
 				case 2:
 				{
+					box.SetSelected(true);
+					break;
+				}
+				case 3:
+				{
+					box.SetSelected(false);
+
 					selectedLan = false;
 					break;
 				}
-
 				break;
 				}
-
 				break;
 			case sf::Event::Closed:
 				window.close();
-
 				break;
 			}
+		case sf::Event::TextEntered:
+			box.typedOn(event);
+			break;
 		}
 	}
 }
