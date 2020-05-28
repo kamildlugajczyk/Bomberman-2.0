@@ -122,12 +122,12 @@ void MainMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 				}
 				case 2:
 				{
-					std::cout << "Wejdz do res/stats/statistics.txt\n";
+					//std::cout << "Wejdz do res/stats/statistics.txt\n";
 					break;
 				}
 				case 3:
 				{
-					std::cout << "Jest tylko jedna mapa\n";
+					//std::cout << "Jest tylko jedna mapa\n";
 					break;
 				}
 				case 4:

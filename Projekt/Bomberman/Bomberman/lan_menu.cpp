@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "lan_menu.hpp"
+#include "textbox.hpp"
 
 
 LanMenu::LanMenu()
@@ -34,15 +35,18 @@ void LanMenu::Draw(sf::RenderWindow & window)
 	menuOptions[0].setCharacterSize(FONT_SIZE);
 
 	menuOptions[1].setString("Join game");
-	menuOptions[1].setPosition(X_POS, Y_POS_BASE + 50);
+	menuOptions[1].setPosition(X_POS, Y_POS_BASE + 100);
 	menuOptions[1].setCharacterSize(FONT_SIZE);
 
 	menuOptions[2].setString("Back");
-	menuOptions[2].setPosition(X_POS, Y_POS_BASE + 100);
+	menuOptions[2].setPosition(X_POS, Y_POS_BASE + 150);
 	menuOptions[2].setCharacterSize(FONT_SIZE);
 
 	indicator.setString(">");
 	indicator.setCharacterSize(FONT_SIZE);
+
+	//playerText.setPosition(X_POS, Y_POS_BASE + 100);
+	//playerText.setCharacterSize(FONT_SIZE);
 
 	window.draw(logo);
 	for (int i = 0; i < OPTION_AMOUNT_LAN; i++)
@@ -50,6 +54,7 @@ void LanMenu::Draw(sf::RenderWindow & window)
 		window.draw(menuOptions[i]);
 	}
 	window.draw(indicator);
+	
 }
 
 void LanMenu::LoadFont(const sf::Font & font)
@@ -109,8 +114,12 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 				}
 				case 1:
 				{
-					Game game{};
-					game.PlayLAN(window, false);			// as client
+					Textbox textbox{};
+					textbox.SetSelected(true);
+					textbox.Draw(window);
+
+					//Game game{};
+					//game.PlayLAN(window, false);			// as client
 					break;
 				}
 				case 2:

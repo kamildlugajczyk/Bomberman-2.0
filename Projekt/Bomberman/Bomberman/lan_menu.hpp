@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "main_menu.hpp"
+#include "textbox.hpp"
 
 #define OPTION_AMOUNT_LAN 3
 
@@ -12,6 +13,7 @@ class LanMenu : public MainMenu
 	sf::Text menuOptions[OPTION_AMOUNT_LAN];
 	sf::Text logo;
 	sf::Text indicator;
+
 
 	int selectedItemIndex;
 

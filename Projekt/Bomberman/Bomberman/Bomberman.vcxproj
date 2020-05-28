@@ -138,6 +138,7 @@
     <ClCompile Include="main_menu.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="solid_wall.cpp" />
+    <ClCompile Include="textbox.cpp" />
     <ClCompile Include="wall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="main_menu.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="solid_wall.hpp" />
+    <ClInclude Include="textbox.hpp" />
     <ClInclude Include="wall.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -17,15 +17,13 @@ int main()
 	sf::Vector2f windowSize;										// rozmiar okna gry
 
 	bool selectedLan = false;
-
+	
 	windowSize.x = 960;
 	windowSize.y = 700;
 	window.create(sf::VideoMode(windowSize.x, windowSize.y), "Bomberman");
 	window.setFramerateLimit(60);
 	window.clear(sf::Color(42, 42, 42));
 
-
-	
 	
 	MainMenu menu{};
 	LanMenu lanMenu{};
@@ -52,6 +50,6 @@ int main()
 	
 	
 
-	std::getchar();
+
 	return 0;
 }

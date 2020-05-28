@@ -80,7 +80,7 @@ void Game::Play(sf::RenderWindow & window)
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
+			if (event.type == sf::Event::Closed)
 				window.close();
 
 			if (isOver)
@@ -101,7 +101,7 @@ void Game::Play(sf::RenderWindow & window)
 				if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R)
 					PlayAgain();
 				else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-					window.close();
+					return;
 			}
 		}
 
@@ -205,7 +205,7 @@ void Game::PlayLAN(sf::RenderWindow & window, bool asServer)
 			sf::Event event;
 			while (window.pollEvent(event))
 			{
-				if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
+				if (event.type == sf::Event::Closed)
 					window.close();
 			}
 
@@ -222,7 +222,7 @@ void Game::PlayLAN(sf::RenderWindow & window, bool asServer)
 				{
 					playOrQuit = '0';
 					socket.send(playOrQuit.c_str(), playOrQuit.length() + 1);
-					window.close();
+					return;
 				}
 			}
 
@@ -292,7 +292,7 @@ void Game::PlayLAN(sf::RenderWindow & window, bool asServer)
 			sf::Event event;
 			while (window.pollEvent(event))
 			{
-				if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
+				if (event.type == sf::Event::Closed)
 					window.close();
 
 			}
@@ -314,7 +314,7 @@ void Game::PlayLAN(sf::RenderWindow & window, bool asServer)
 				}
 				else if (!playOrQuit)
 				{
-					window.close();
+					return;
 				}
 			}
 

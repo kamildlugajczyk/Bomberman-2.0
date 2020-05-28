@@ -488,3 +488,73 @@
 	Player 1 wins!
 	 -Player 1 planted 27 bomb(s)
 	 -Player 2 planted 0 bomb(s)
+
+ 25.5.2020		13:48:11
+	Player 1 wins!
+	 -Player 1 planted 0 bomb(s)
+	 -Player 2 planted 1 bomb(s)
+
+ 25.5.2020		13:48:27
+	Player 1 wins!
+	 -Player 1 planted 0 bomb(s)
+	 -Player 2 planted 1 bomb(s)
+
+ 25.5.2020		13:49:21
+	Player 2 wins!
+	 -Player 2 planted 0 bomb(s)
+	 -Player 1 planted 1 bomb(s)
+
+ 25.5.2020		13:49:35
+	Player 1 wins!
+	 -Player 1 planted 0 bomb(s)
+	 -Player 2 planted 1 bomb(s)
+
+ 25.5.2020		13:52:7
+	Player 1 wins!
+	 -Player 1 planted 0 bomb(s)
+	 -Player 2 planted 1 bomb(s)
+
+ 25.5.2020		13:52:17
+	Player 1 wins!
+	 -Player 1 planted 0 bomb(s)
+	 -Player 2 planted 1 bomb(s)
+
+ 25.5.2020		13:52:34
+	Player 1 wins!
+	 -Player 1 planted 0 bomb(s)
+	 -Player 2 planted 2 bomb(s)
+
+ 25.5.2020		13:53:8
+	Player 1 wins!
+	 -Player 1 planted 0 bomb(s)
+	 -Player 2 planted 1 bomb(s)
+
+ 25.5.2020		13:53:17
+	Player 2 wins!
+	 -Player 2 planted 0 bomb(s)
+	 -Player 1 planted 1 bomb(s)
+
+ 25.5.2020		13:55:49
+	Player 1 wins!
+	 -Player 1 planted 0 bomb(s)
+	 -Player 2 planted 1 bomb(s)
+
+ 25.5.2020		20:57:21
+	Player 2 wins!
+	 -Player 2 planted 1 bomb(s)
+	 -Player 1 planted 1 bomb(s)
+
+ 25.5.2020		21:1:7
+	Player 1 wins!
+	 -Player 1 planted 0 bomb(s)
+	 -Player 2 planted 5 bomb(s)
+
+ 25.5.2020		21:1:22
+	Player 1 wins!
+	 -Player 1 planted 0 bomb(s)
+	 -Player 2 planted 1 bomb(s)
+
+ 28.5.2020		22:57:8
+	Player 2 wins!
+	 -Player 2 planted 0 bomb(s)
+	 -Player 1 planted 1 bomb(s)
