@@ -42,9 +42,9 @@ void LanMenu::Draw(sf::RenderWindow & window)
 	menuOptions[2].setPosition(X_POS + 40, Y_POS_BASE + 100);
 	menuOptions[2].setCharacterSize(FONT_SIZE);
 
-	box.textbox.setPosition(X_POS + 100, Y_POS_BASE + 100);
+	/*box.textbox.setPosition(X_POS + 100, Y_POS_BASE + 100);
 	box.textbox.setCharacterSize(FONT_SIZE);
-	//box.textbox.setString("192.168.1.1");
+	box.textbox.setString("192.168.1.1");*/
 
 	menuOptions[3].setString("Back");
 	menuOptions[3].setPosition(X_POS, Y_POS_BASE + 150);
@@ -101,73 +101,78 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 	{
 		switch (event.type)
 		{
-		//case sf::Event::KeyReleased:
-		//	switch (event.key.code)
-		//	{
-		//	case sf::Keyboard::Up:
-		//		this->MoveUp(window);
-		//		break;
-
-		//	case sf::Keyboard::Down:
-		//		this->MoveDown(window);
-		//		break;
-		//	case sf::Keyboard::Return:
-		//		switch (this->GetPressedItem())
-		//		{
-		//		case 0:
-		//		{
-		//			//box.SetSelected(false);
-
-		//			Game game{};
-		//			game.PlayLAN(window, true);			// as server
-		//			break;
-		//		}
-		//		case 1:
-		//		{
-		//			//box.SetSelected(false);
-
-		//			Game game{};
-		//			game.PlayLAN(window, false);			// as client
-		//			break;
-		//		}
-		//		case 2:
-		//		{
-		//				box.SetSelected(true);
-		//			
-		//			break;
-		//		}
-		//		case 3:
-		//		{
-		//			//box.SetSelected(false);
-
-		//			selectedLan = false;
-		//			break;
-		//		}
-		//		break;
-		//		}
-		//		break;
-		//	case sf::Event::Closed:
-		//		window.close();
-		//		break;
-		//	}
-		case sf::Event::TextEntered:
-			/*if (box.isSelected)
-			{*/
-				int charTyped = event.text.unicode;
-
-				if (charTyped < 128)
+			case sf::Event::TextEntered:
+			{
+				if (box.isSelected)
 				{
-					if (box.text.str().length() <= box.limit)
+					int charTyped = event.text.unicode;
+
+					if (charTyped < 128)
 					{
-						box.inputLogic(charTyped);
-					}
-					else if (box.text.str().length() > box.limit && charTyped == DELETE_KEY)
-					{
-						box.deleteLastChar();
+						if (box.text.str().length() <= box.limit)
+						{
+							box.inputLogic(charTyped);
+						}
+						else if (box.text.str().length() > box.limit && charTyped == DELETE_KEY)
+						{
+							box.deleteLastChar();
+						}
 					}
 				}
-			//}
-			break;
+			}
+			case sf::Event::KeyPressed:
+				switch (event.key.code)
+				{
+				case sf::Keyboard::Up:
+					this->MoveUp(window);
+					break;
+
+				case sf::Keyboard::Down:
+					this->MoveDown(window);
+					break;
+				case sf::Keyboard::Return:
+					switch (this->GetPressedItem())
+					{
+					case 0:
+					{
+						box.SetSelected(false);
+
+						std::string ip = box.text.str();
+
+						Game game{};
+						game.PlayLAN(window, true, ip);			// as server
+						break;
+					}
+					case 1:
+					{
+						box.SetSelected(false);
+
+						std::string ip = box.text.str();
+
+						Game game{};
+						game.PlayLAN(window, false, ip);			// as client
+						break;
+					}
+					case 2:
+					{
+						box.SetSelected(true);
+
+						break;
+					}
+					case 3:
+					{
+						box.SetSelected(false);
+
+						selectedLan = false;
+						break;
+					}
+					break;
+					}
+					break;
+				case sf::Event::Closed:
+					window.close();
+					break;
+				}
 		}
 	}
 }

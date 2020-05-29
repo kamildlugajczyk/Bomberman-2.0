@@ -136,14 +136,14 @@ void Game::Play(sf::RenderWindow & window)
 
 //-------------------LAN-------------------//
 
-void Game::PlayLAN(sf::RenderWindow & window, bool asServer)
+void Game::PlayLAN(sf::RenderWindow & window, bool asServer, std::string & ip)
 {
 	sf::Clock clock;
 	sf::Time time;
 
 
 	sf::TcpSocket socket;
-	sf::IpAddress ip = sf::IpAddress::getLocalAddress();
+	
 	std::string data;
 	std::string response;
 	std::size_t received;
@@ -151,9 +151,6 @@ void Game::PlayLAN(sf::RenderWindow & window, bool asServer)
 
 	if (!asServer)
 	{
-		//std::cout << "Podaj adres servera: \n";
-		//std::cin >> ip;
-
 		socket.connect(ip, 53000);
 	}
 	else if (asServer)

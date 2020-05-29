@@ -5,7 +5,7 @@
 #include "textbox.hpp"
 
 Textbox::Textbox()
-	: isSelected(false), limit(100)
+	: isSelected(false), limit(15)
 {
 	textbox.setPosition(350, 300);
 	textbox.setCharacterSize(80);
@@ -14,6 +14,8 @@ Textbox::Textbox()
 		textbox.setString("_");
 	else
 		textbox.setString("");
+
+
 }
 
 void Textbox::SetSelected(bool sel)
@@ -49,6 +51,9 @@ void Textbox::Draw(sf::RenderWindow & window)
 	else
 		this->LoadFont(font);
 
+	this->textbox.setPosition(450, 350);
+	this->textbox.setCharacterSize(35);
+
 	window.draw(textbox);
 }
 
@@ -72,12 +77,10 @@ void Textbox::deleteLastChar()
 
 void Textbox::inputLogic(int charTyped)
 {
-	// If the key pressed isn't delete, or the two selection keys, then append the text with the char:
 	if (charTyped != DELETE_KEY /*&& charTyped != ENTER_KEY && charTyped != ESCAPE_KEY*/) 
 	{
 		text << static_cast<char>(charTyped);
 	}
-	// If the key is delete, then delete the char:
 	else if (charTyped == DELETE_KEY) 
 	{
 		if (text.str().length() > 0) 
@@ -85,6 +88,7 @@ void Textbox::inputLogic(int charTyped)
 			deleteLastChar();
 		}
 	}
-	// Set the textbox text:
+
 	textbox.setString(text.str() + "_");
 }
+

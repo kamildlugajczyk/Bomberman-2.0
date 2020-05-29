@@ -17,7 +17,7 @@ int main()
 	sf::Vector2f windowSize;										// rozmiar okna gry
 
 	bool selectedLan = false;
-	
+
 	windowSize.x = 960;
 	windowSize.y = 700;
 	window.create(sf::VideoMode(windowSize.x, windowSize.y), "Bomberman");
@@ -27,6 +27,7 @@ int main()
 	
 	MainMenu menu{};
 	LanMenu lanMenu{};
+	//Textbox text1{};
 	//Game game{};
 
 	while (window.isOpen())

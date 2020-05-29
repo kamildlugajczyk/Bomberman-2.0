@@ -95,7 +95,7 @@ void MainMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 	{
 		switch (event.type)
 		{
-		case sf::Event::KeyReleased:
+		case sf::Event::KeyPressed:
 			switch (event.key.code)
 			{
 			case sf::Keyboard::Up:

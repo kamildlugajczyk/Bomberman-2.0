@@ -4,25 +4,18 @@
 #include <sstream>
 #include <SFML/Graphics.hpp>
 
+#include "main_menu.hpp"
+
 // Define keys:
 #define DELETE_KEY 8
 #define ENTER_KEY 13
 #define ESCAPE_KEY 27
 
-class Textbox {
+class Textbox
+{
+
+
 public:
-	Textbox();
-
-	void SetSelected(bool sel);
-
-	std::string GetText();
-
-	void Draw(sf::RenderWindow &window);
-
-	void LoadFont(const sf::Font & font);
-
-
-private:
 	sf::Text textbox;
 	std::ostringstream text;
 
@@ -32,6 +25,14 @@ private:
 	void deleteLastChar();
 
 	void inputLogic(int charTyped);
+	//----------------------
+	Textbox();
 
-	friend class LanMenu;
+	void SetSelected(bool sel);
+
+	std::string GetText();
+
+	void Draw(sf::RenderWindow &window);
+
+	void LoadFont(const sf::Font & font);
 };
