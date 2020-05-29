@@ -12,7 +12,6 @@ MainMenu::MainMenu()
 
 void MainMenu::Draw(sf::RenderWindow & window)
 {
-	// to przemyslec
 	sf::Font font;
 	if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
 	{
@@ -26,8 +25,6 @@ void MainMenu::Draw(sf::RenderWindow & window)
 	logo.setString("BOMBERMAN");
 	logo.setPosition(220, 100);
 	logo.setCharacterSize(80);
-	//menuOptions[0].setOutlineColor(sf::Color::Red);
-	//menuOptions[0].setOutlineThickness(3.0);
 
 	menuOptions[0].setString("Local");
 	menuOptions[0].setPosition(X_POS, Y_POS_BASE);
@@ -135,16 +132,13 @@ void MainMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 					break;
 
 				}
-
 				break;
 			}
 
 			break;
 		case sf::Event::Closed:
 			window.close();
-
 			break;
-
 		}
 	}
 }

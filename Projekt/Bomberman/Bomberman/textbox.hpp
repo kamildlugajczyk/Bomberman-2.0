@@ -30,8 +30,6 @@ public:
 
 	void SetSelected(bool sel);
 
-	std::string GetText();
-
 	void Draw(sf::RenderWindow &window);
 
 	void LoadFont(const sf::Font & font);

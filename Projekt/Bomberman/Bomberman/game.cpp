@@ -136,14 +136,13 @@ void Game::Play(sf::RenderWindow & window)
 
 //-------------------LAN-------------------//
 
-void Game::PlayLAN(sf::RenderWindow & window, bool asServer, std::string & ip)
+void Game::PlayLAN(sf::RenderWindow & window, bool asServer, std::string ip)
 {
 	sf::Clock clock;
 	sf::Time time;
 
 
 	sf::TcpSocket socket;
-	
 	std::string data;
 	std::string response;
 	std::size_t received;
@@ -151,6 +150,9 @@ void Game::PlayLAN(sf::RenderWindow & window, bool asServer, std::string & ip)
 
 	if (!asServer)
 	{
+		for (int i = 0; i < ip.length(); i++)
+			ip[i] = ip[i + 1];
+
 		socket.connect(ip, 53000);
 	}
 	else if (asServer)
@@ -158,7 +160,7 @@ void Game::PlayLAN(sf::RenderWindow & window, bool asServer, std::string & ip)
 		sf::TcpListener listener;
 		listener.listen(53000);
 		listener.accept(socket);
-		std::cout << "Connection accepted" << std::endl;
+
 		//std::thread listenerTCP;
 		//listenerTCP = std::thread([&] { this->ListenTCP(socket); });
 

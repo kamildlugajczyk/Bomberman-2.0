@@ -27,8 +27,6 @@ int main()
 	
 	MainMenu menu{};
 	LanMenu lanMenu{};
-	//Textbox text1{};
-	//Game game{};
 
 	while (window.isOpen())
 	{
@@ -44,12 +42,8 @@ int main()
 			window.clear(sf::Color(42, 42, 42));
 			lanMenu.Draw(window);
 		}
-
 		window.display();
 	}
-
-	
-	
 
 
 	return 0;

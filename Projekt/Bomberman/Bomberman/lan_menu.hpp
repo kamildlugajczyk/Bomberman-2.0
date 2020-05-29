@@ -15,7 +15,6 @@ class LanMenu : public MainMenu
 	sf::Text indicator;
 	Textbox box;
 
-
 	int selectedItemIndex;
 
 public:

@@ -13,7 +13,6 @@ LanMenu::LanMenu()
 
 void LanMenu::Draw(sf::RenderWindow & window)
 {
-	// to przemyslec
 	sf::Font font;
 	if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
 	{
@@ -27,8 +26,6 @@ void LanMenu::Draw(sf::RenderWindow & window)
 	logo.setString("LAN");
 	logo.setPosition(280, 100);
 	logo.setCharacterSize(80);
-	//menuOptions[0].setOutlineColor(sf::Color::Red);
-	//menuOptions[0].setOutlineThickness(3.0);
 
 	menuOptions[0].setString("Host game");
 	menuOptions[0].setPosition(X_POS, Y_POS_BASE);
@@ -42,19 +39,12 @@ void LanMenu::Draw(sf::RenderWindow & window)
 	menuOptions[2].setPosition(X_POS + 40, Y_POS_BASE + 100);
 	menuOptions[2].setCharacterSize(FONT_SIZE);
 
-	/*box.textbox.setPosition(X_POS + 100, Y_POS_BASE + 100);
-	box.textbox.setCharacterSize(FONT_SIZE);
-	box.textbox.setString("192.168.1.1");*/
-
 	menuOptions[3].setString("Back");
 	menuOptions[3].setPosition(X_POS, Y_POS_BASE + 150);
 	menuOptions[3].setCharacterSize(FONT_SIZE);
 
 	indicator.setString(">");
 	indicator.setCharacterSize(FONT_SIZE);
-
-	//playerText.setPosition(X_POS, Y_POS_BASE + 100);
-	//playerText.setCharacterSize(FONT_SIZE);
 
 	window.draw(logo);
 	for (int i = 0; i < OPTION_AMOUNT_LAN; i++)

@@ -14,8 +14,6 @@ Textbox::Textbox()
 		textbox.setString("_");
 	else
 		textbox.setString("");
-
-
 }
 
 void Textbox::SetSelected(bool sel)
@@ -32,11 +30,6 @@ void Textbox::SetSelected(bool sel)
 		}
 		textbox.setString(newT);
 	}
-}
-
-std::string Textbox::GetText()
-{
-	return text.str();
 }
 
 void Textbox::Draw(sf::RenderWindow & window)
@@ -77,7 +70,7 @@ void Textbox::deleteLastChar()
 
 void Textbox::inputLogic(int charTyped)
 {
-	if (charTyped != DELETE_KEY /*&& charTyped != ENTER_KEY && charTyped != ESCAPE_KEY*/) 
+	if (charTyped != DELETE_KEY) 
 	{
 		text << static_cast<char>(charTyped);
 	}
