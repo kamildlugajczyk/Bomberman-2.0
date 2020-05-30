@@ -4,5 +4,5 @@ Na dzień dzisiejszy gra umożliwa rozgrywkę dla dwóch graczy na jednym komput
 
 Nowe funkcjonalności w ramach PK4:
 - tryb sieciowy umożliwiający granie online w sieci lokalnej
-- menu umożliwiające wybór mapy oraz podejrzenie statystyk
-- dodanie powerupów urozmaicających rozgrywkę 
+- menu umożliwiające wybór gry lokalnej lub sieciowej
+- dodanie funkcjonalności takich jak regex, threads, templates
