@@ -150,19 +150,17 @@ void Game::PlayLAN(sf::RenderWindow & window, bool asServer, std::string ip)
 
 	if (!asServer)
 	{
-		for (int i = 0; i < ip.length(); i++)
+		for (int i = 0; i < ip.length(); i++)				// usuniecie '\r' z pierwszego miejsca ip jako pozostalosc po ostreamstring.str()
 			ip[i] = ip[i + 1];
 
 		socket.connect(ip, 53000);
 	}
 	else if (asServer)
 	{
-		sf::TcpListener listener;
-		listener.listen(53000);
-		listener.accept(socket);
+		this->ListenTCP(socket);
 
-		//std::thread listenerTCP;
-		//listenerTCP = std::thread([&] { this->ListenTCP(socket); });
+		/*std::thread listenerTCP;
+		listenerTCP = std::thread([&] { this->ListenTCP(socket); });*/
 
 	}
 
@@ -403,10 +401,10 @@ void Game::PlayAgain()
 
 void Game::ListenTCP(sf::TcpSocket & socket)
 {
-	while (!gotConnection)
-	{
+	//while (!gotConnection)
+	//{
 		sf::TcpListener listener;
 		listener.listen(53000);
 		listener.accept(socket);	
-	}
+	//}
 }

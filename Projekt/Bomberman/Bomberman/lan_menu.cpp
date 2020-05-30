@@ -97,7 +97,7 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 				{
 					int charTyped = event.text.unicode;
 
-					if (charTyped < 128)
+					if ((charTyped >= 48 && charTyped <= 57) || charTyped == 46 || charTyped == DELETE_KEY || charTyped == ENTER_KEY )
 					{
 						if (box.text.str().length() <= box.limit)
 						{
