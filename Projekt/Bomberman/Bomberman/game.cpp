@@ -135,8 +135,8 @@ void Game::Play(sf::RenderWindow & window)
 }
 
 //-------------------LAN-------------------//
-
-void Game::PlayLAN(sf::RenderWindow & window, bool asServer, std::string ip)
+/* Jako serwer */
+void Game::PlayLAN(sf::RenderWindow & window)
 {
 	sf::Clock clock;
 	sf::Time time;
@@ -148,21 +148,11 @@ void Game::PlayLAN(sf::RenderWindow & window, bool asServer, std::string ip)
 	std::size_t received;
 	char buffer[2000];
 
-	if (!asServer)
-	{
-		for (int i = 0; i < ip.length(); i++)				// usuniecie '\r' z pierwszego miejsca ip jako pozostalosc po ostreamstring.str()
-			ip[i] = ip[i + 1];
+	
+	this->ListenTCP(socket);
 
-		socket.connect(ip, 53000);
-	}
-	else if (asServer)
-	{
-		this->ListenTCP(socket);
-
-		/*std::thread listenerTCP;
-		listenerTCP = std::thread([&] { this->ListenTCP(socket); });*/
-
-	}
+	/*std::thread listenerTCP;
+	listenerTCP = std::thread([&] { this->ListenTCP(socket); });*/
 
 	if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
 	{
@@ -193,97 +183,146 @@ void Game::PlayLAN(sf::RenderWindow & window, bool asServer, std::string ip)
 	player2.LoadTexture(player2.texture_p2);
 	map.LoadFromFile();
 	map.LoadTiles();
+	
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
+		if (isOver)
+		{
+			std::string playOrQuit;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+			{
+				playOrQuit = '1';
+				socket.send(playOrQuit.c_str(), playOrQuit.length() + 1);
+				PlayAgain();
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			{
+				playOrQuit = '0';
+				socket.send(playOrQuit.c_str(), playOrQuit.length() + 1);
+				return;
+			}
+		}
+
+		window.clear(sf::Color::Black);
+		time = clock.restart();
+
+		if (!isOver)
+		{
+			bool isOtherPlayerKilled = false;
+			bool direction = 1;
+
+			data.clear();																//czyszcze string
+			memset(buffer, 0, sizeof buffer);											//czyszcze bufor
+			received = 0;																//czyszcze 
+
+			int positionX = 0;
+			int positionY = 0;
+
+			int bombX = -1;
+			int bombY = -1;
+
+			player1.MoveWSAD(time, map);
+			player1.GetDataForLAN(data);
+			socket.send(data.c_str(), data.length() + 1);							//wysylam moja pozycje
+			socket.receive(buffer, sizeof(buffer), received);						//odbieram pozycje przeciwnika
+
+			sscanf_s(buffer, "%d %d %d %d %d %d ", &positionX, &positionY, &direction, &bombX, &bombY, &isOtherPlayerKilled);
+			player2.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
+			player2.SetMovingSate(direction);
+
+			// tymczasowe plantowanie bomby
+			if (bombX != -1 && bombY != -1)
+			{
+				Bomb * bomb = new Bomb{};
+				bomb->SetUp();
+				player2.bombPlaced++;
+
+				sf::Vector2f bombXY;
+				bombXY.x = bombX;
+				bombXY.y = bombY;
+
+				bomb->SetPosition(bombXY);
+				map.blocks[(int)(bombXY.y) / 64][(int)(bombXY.x) / 64] = bomb;
+				map.blocks[(int)(bombXY.y) / 64][(int)(bombXY.x) / 64]->type = bombBlock;
+			}
+
+			if (player1.IsKilled())
+			{
+				isOver = true;
+				endGameScreen.DisplayPlayer1Win(false, true);
+			}
+			else if (isOtherPlayerKilled)
+			{
+				isOver = true;
+				endGameScreen.DisplayPlayer1Win(true, true);
+			}
+		}
+		Update(time);
+		Draw(window);
+		window.display();
+	}
+}
+
+/* Jako klient*/
+void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
+{
+	sf::Clock clock;
+	sf::Time time;
+
+	sf::TcpSocket socket;
+	std::string data;
+	std::string response;
+	std::size_t received;
+	char buffer[2000];
 
 	
-	if (asServer)
+	//for (int i = 0; i < ip.length(); i++)				// usuniecie '\r' z pierwszego miejsca ip jako pozostalosc po ostreamstring.str()
+	//	ip[i] = ip[i + 1];
+
+	if (socket.connect(ip, 53000) != sf::Socket::Done)
 	{
-		while (window.isOpen())
-		{
-			sf::Event event;
-			while (window.pollEvent(event))
-			{
-				if (event.type == sf::Event::Closed)
-					window.close();
-			}
-
-			if (isOver)
-			{
-				std::string playOrQuit;
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-				{
-					playOrQuit = '1';
-					socket.send(playOrQuit.c_str(), playOrQuit.length() + 1);
-					PlayAgain();
-				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-				{
-					playOrQuit = '0';
-					socket.send(playOrQuit.c_str(), playOrQuit.length() + 1);
-					return;
-				}
-			}
-
-			window.clear(sf::Color::Black);
-			time = clock.restart();
-
-			if (!isOver)
-			{
-				bool isOtherPlayerKilled = false;
-				bool direction = 1;
-
-				data.clear();																//czyszcze string
-				memset(buffer, 0, sizeof buffer);											//czyszcze bufor
-				received = 0;																//czyszcze 
-
-				int positionX = 0;
-				int positionY = 0;
-
-				int bombX = -1;
-				int bombY = -1;
-
-				player1.MoveWSAD(time, map);
-				player1.GetDataForLAN(data);
-				socket.send(data.c_str(), data.length() + 1);							//wysylam moja pozycje
-				socket.receive(buffer, sizeof(buffer), received);						//odbieram pozycje przeciwnika
-
-				sscanf_s(buffer, "%d %d %d %d %d %d ", &positionX, &positionY, &direction, &bombX, &bombY, &isOtherPlayerKilled);
-				player2.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
-				player2.SetMovingSate(direction);
-
-				// tymczasowe plantowanie bomby
-				if (bombX != -1 && bombY != -1)
-				{
-					Bomb * bomb = new Bomb{};
-					bomb->SetUp();
-					player2.bombPlaced++;
-
-					sf::Vector2f bombXY;
-					bombXY.x = bombX;
-					bombXY.y = bombY;
-
-					bomb->SetPosition(bombXY);
-					map.blocks[(int)(bombXY.y) / 64][(int)(bombXY.x) / 64] = bomb;
-					map.blocks[(int)(bombXY.y) / 64][(int)(bombXY.x) / 64]->type = bombBlock;
-				}
-
-				if (player1.IsKilled())
-				{
-					isOver = true;
-					endGameScreen.DisplayPlayer1Win(false, true);
-				}
-				else if (isOtherPlayerKilled)
-				{
-					isOver = true;
-					endGameScreen.DisplayPlayer1Win(true, true);
-				}
-			}
-			Update(time);
-			Draw(window);
-			window.display();
-		}
+		// exception 
+		return;
 	}
-	else if (!asServer)
+	else
 	{
+		if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
+		{
+			std::cout << "Load failed! " << std::endl;
+			getchar();
+			return;
+		}
+		else
+			endGameScreen.LoadFont(font);
+
+		////-------------- gracz 1 ---------------------------
+		if (!player1.texture_p1.loadFromFile("res/img/character1.png"))
+		{
+			std::cout << "Load failed! " << std::endl;
+			getchar();
+			return;
+		}
+		//-------------- gracz 2 ---------------------------
+		if (!player2.texture_p2.loadFromFile("res/img/character2.png"))
+		{
+			std::cout << "Load failed! " << std::endl;
+			getchar();
+			return;
+		}
+		//--------------------------------------------------
+
+		player1.LoadTexture(player1.texture_p1);
+		player2.LoadTexture(player2.texture_p2);
+		map.LoadFromFile();
+		map.LoadTiles();
+
 		while (window.isOpen())
 		{
 			sf::Event event;
@@ -374,8 +413,6 @@ void Game::PlayLAN(sf::RenderWindow & window, bool asServer, std::string ip)
 			window.display();
 		}
 	}
-
-	
 }
 
 //-----------------------------------------//
@@ -405,6 +442,6 @@ void Game::ListenTCP(sf::TcpSocket & socket)
 	//{
 		sf::TcpListener listener;
 		listener.listen(53000);
-		listener.accept(socket);	
+		listener.accept(socket);
 	//}
 }

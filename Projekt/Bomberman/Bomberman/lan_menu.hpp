@@ -13,9 +13,11 @@ class LanMenu : public MainMenu
 	sf::Text menuOptions[OPTION_AMOUNT_LAN];
 	sf::Text logo;
 	sf::Text indicator;
+	sf::Text warning;
 	Textbox box;
 
 	int selectedItemIndex;
+	bool play = true;
 
 public:
 

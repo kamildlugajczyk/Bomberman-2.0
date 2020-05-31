@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <regex>
 #include <SFML/Graphics.hpp>
 
 #include "main_menu.hpp"
@@ -31,4 +32,6 @@ public:
 	void Draw(sf::RenderWindow &window);
 
 	void LoadFont(const sf::Font & font);
+
+	bool isIPValid(std::string & ip);
 };

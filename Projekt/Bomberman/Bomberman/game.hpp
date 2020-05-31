@@ -39,7 +39,11 @@ public:
 	sa kolejne metody, zawiera glowna petle gry */
 	void Play(sf::RenderWindow & window);
 
-	void PlayLAN(sf::RenderWindow & window, bool asServer, std::string ip);
+	/* Jako serwer */
+	void PlayLAN(sf::RenderWindow & window);
+
+	/* Jako klient*/
+	void PlayLAN(sf::RenderWindow & window, std::string ip);
 
 	/* Metoda przywracajaca stan gry do warunkow poczatkowych
 	(pozycje obu graczy, ponowne wczytanie planszy, wyzerowanie

@@ -46,6 +46,10 @@ void LanMenu::Draw(sf::RenderWindow & window)
 	indicator.setString(">");
 	indicator.setCharacterSize(FONT_SIZE);
 
+	warning.setString("Enter valid IP adress!");
+	warning.setPosition(X_POS - 100, Y_POS_BASE + 300);
+	warning.setCharacterSize(FONT_SIZE);
+
 	window.draw(logo);
 	for (int i = 0; i < OPTION_AMOUNT_LAN; i++)
 	{
@@ -53,7 +57,9 @@ void LanMenu::Draw(sf::RenderWindow & window)
 	}
 	window.draw(indicator);
 	box.Draw(window);
-	
+
+	if(!play)
+		window.draw(warning);
 }
 
 void LanMenu::LoadFont(const sf::Font & font)
@@ -64,6 +70,7 @@ void LanMenu::LoadFont(const sf::Font & font)
 		menuOptions[i].setFont(font);
 	}
 	indicator.setFont(font);
+	warning.setFont(font);
 }
 
 void LanMenu::MoveUp(sf::RenderWindow & window)
@@ -114,10 +121,12 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Up:
+					box.SetSelected(false);
 					this->MoveUp(window);
 					break;
 
 				case sf::Keyboard::Down:
+					box.SetSelected(false);
 					this->MoveDown(window);
 					break;
 				case sf::Keyboard::Return:
@@ -125,35 +134,35 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 					{
 					case 0:
 					{
-						box.SetSelected(false);
-
-						std::string ip = box.text.str();
-
 						Game game{};
-						game.PlayLAN(window, true, ip);			// as server
+						game.PlayLAN(window);				// as server
 						break;
 					}
 					case 1:
 					{
-						box.SetSelected(false);
-
 						std::string ip = box.text.str();
+						if(ip[0] == '\r')
+							ip.erase(ip.begin());				// usuniecie '\r' z pierwszego miejsca ip jako pozostalosc po ostreamstring.str()
 
-						Game game{};
-						game.PlayLAN(window, false, ip);			// as client
+						if (box.isIPValid(ip))
+						{
+							Game game{};
+							game.PlayLAN(window, ip);		// as client
+						}
+						else
+							play = false;
+
 						break;
 					}
 					case 2:
 					{
 						box.SetSelected(true);
-
 						break;
 					}
 					case 3:
 					{
-						box.SetSelected(false);
-
 						selectedLan = false;
+						play = true;
 						break;
 					}
 					break;
