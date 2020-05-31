@@ -14,10 +14,14 @@ class LanMenu : public MainMenu
 	sf::Text logo;
 	sf::Text indicator;
 	sf::Text warning;
+	sf::Text joining;
+	sf::Text hosting;
 	Textbox box;
 
 	int selectedItemIndex;
-	bool play = true;
+	bool wrongIP = false;
+	bool isJoining = false;
+	bool isHosting = false;
 
 public:
 

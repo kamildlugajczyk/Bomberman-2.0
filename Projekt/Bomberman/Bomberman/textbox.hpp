@@ -33,5 +33,5 @@ public:
 
 	void LoadFont(const sf::Font & font);
 
-	bool isIPValid(std::string & ip);
+	bool isIPValid(std::string ip);
 };

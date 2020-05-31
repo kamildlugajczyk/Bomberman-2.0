@@ -50,6 +50,14 @@ void LanMenu::Draw(sf::RenderWindow & window)
 	warning.setPosition(X_POS - 100, Y_POS_BASE + 300);
 	warning.setCharacterSize(FONT_SIZE);
 
+	joining.setString("Joining... Press ESC to cancel.");
+	joining.setPosition(X_POS - 180, Y_POS_BASE + 300);
+	joining.setCharacterSize(FONT_SIZE);
+
+	hosting.setString("Hosting... Press ESC to cancel");
+	hosting.setPosition(X_POS - 180, Y_POS_BASE + 300);
+	hosting.setCharacterSize(FONT_SIZE);
+
 	window.draw(logo);
 	for (int i = 0; i < OPTION_AMOUNT_LAN; i++)
 	{
@@ -58,8 +66,13 @@ void LanMenu::Draw(sf::RenderWindow & window)
 	window.draw(indicator);
 	box.Draw(window);
 
-	if(!play)
+	if (wrongIP)
 		window.draw(warning);
+	else if(isJoining)
+		window.draw(joining);
+	else if(isHosting)
+		window.draw(hosting);
+
 }
 
 void LanMenu::LoadFont(const sf::Font & font)
@@ -71,6 +84,8 @@ void LanMenu::LoadFont(const sf::Font & font)
 	}
 	indicator.setFont(font);
 	warning.setFont(font);
+	joining.setFont(font);
+	hosting.setFont(font);
 }
 
 void LanMenu::MoveUp(sf::RenderWindow & window)
@@ -134,6 +149,7 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 					{
 					case 0:
 					{
+						//isHosting = true;
 						Game game{};
 						game.PlayLAN(window);				// as server
 						break;
@@ -141,28 +157,38 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 					case 1:
 					{
 						std::string ip = box.text.str();
-						if(ip[0] == '\r')
-							ip.erase(ip.begin());				// usuniecie '\r' z pierwszego miejsca ip jako pozostalosc po ostreamstring.str()
+
+						for (int i = 0; i < ip.length(); i++)
+						{
+							if (ip[0] == '\r')
+								ip.erase(ip.begin());				// usuniecie '\r' z pierwszego miejsca ip jako pozostalosc po ostreamstring.str()
+							else
+								break;
+						}
 
 						if (box.isIPValid(ip))
 						{
+							//isJoining = true;
+							//this->Draw(window);
+							//std::cout << "\n Joined \n";
 							Game game{};
 							game.PlayLAN(window, ip);		// as client
 						}
 						else
-							play = false;
+							wrongIP = true;
 
 						break;
 					}
 					case 2:
 					{
+						wrongIP = false;
 						box.SetSelected(true);
 						break;
 					}
 					case 3:
 					{
 						selectedLan = false;
-						play = true;
+						wrongIP = false;
 						break;
 					}
 					break;

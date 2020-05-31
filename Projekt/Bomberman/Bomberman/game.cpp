@@ -148,7 +148,6 @@ void Game::PlayLAN(sf::RenderWindow & window)
 	std::size_t received;
 	char buffer[2000];
 
-	
 	this->ListenTCP(socket);
 
 	/*std::thread listenerTCP;

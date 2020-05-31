@@ -30,16 +30,16 @@ int main()
 
 	while (window.isOpen())
 	{
+		window.clear(sf::Color(42, 42, 42));
+
 		if (!selectedLan)
 		{
 			menu.ShowMenu(window, selectedLan);
-			window.clear(sf::Color(42, 42, 42));
 			menu.Draw(window);
 		}
 		else
 		{
 			lanMenu.ShowMenu(window, selectedLan);
-			window.clear(sf::Color(42, 42, 42));
 			lanMenu.Draw(window);
 		}
 		window.display();
