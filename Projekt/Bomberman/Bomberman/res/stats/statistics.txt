@@ -573,3 +573,18 @@
 	Player 2 wins!
 	 -Player 2 planted 0 bomb(s)
 	 -Player 1 planted 1 bomb(s)
+
+ 1.6.2020		18:12:20
+	Player 2 wins!
+	 -Player 2 planted 0 bomb(s)
+	 -Player 1 planted 1 bomb(s)
+
+ 1.6.2020		18:12:29
+	Player 2 wins!
+	 -Player 2 planted 1 bomb(s)
+	 -Player 1 planted 1 bomb(s)
+
+ 1.6.2020		18:12:39
+	Player 2 wins!
+	 -Player 2 planted 0 bomb(s)
+	 -Player 1 planted 1 bomb(s)

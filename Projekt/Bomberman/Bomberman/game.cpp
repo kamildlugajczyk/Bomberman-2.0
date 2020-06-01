@@ -23,14 +23,14 @@ Game::Game()
 	isOver = false;
 }
 
-void Game::Update(const sf::Time deltaTime)
+void Game::Update(const sf::Time deltaTime, Map & map)
 {
 	map.Update(deltaTime);
 	player1.Update(deltaTime);
 	player2.Update(deltaTime);
 }
 
-void Game::Draw(sf::RenderWindow & window)
+void Game::Draw(sf::RenderWindow & window, Map & map)
 {
 	map.Draw(window);
 	player1.Draw(window);
@@ -42,6 +42,8 @@ void Game::Draw(sf::RenderWindow & window)
 
 void Game::Play(sf::RenderWindow & window)
 {
+	Map map;														// mapa gry
+
 	sf::Clock clock;
 	sf::Time time;
 
@@ -99,7 +101,7 @@ void Game::Play(sf::RenderWindow & window)
 				once = false;
 
 				if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R)
-					PlayAgain();
+					PlayAgain(map);
 				else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 					return;
 			}
@@ -126,9 +128,9 @@ void Game::Play(sf::RenderWindow & window)
 			}
 		}
 
-		Update(time);
+		Update(time, map);
 
-		Draw(window);
+		Draw(window, map);
 		window.display();
 
 	}
@@ -138,6 +140,8 @@ void Game::Play(sf::RenderWindow & window)
 /* Jako serwer */
 void Game::PlayLAN(sf::RenderWindow & window)
 {
+	Map map;														// mapa gry
+
 	sf::Clock clock;
 	sf::Time time;
 
@@ -199,7 +203,7 @@ void Game::PlayLAN(sf::RenderWindow & window)
 			{
 				playOrQuit = '1';
 				socket.send(playOrQuit.c_str(), playOrQuit.length() + 1);
-				PlayAgain();
+				PlayAgain(map);
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 			{
@@ -263,8 +267,8 @@ void Game::PlayLAN(sf::RenderWindow & window)
 				endGameScreen.DisplayPlayer1Win(true, true);
 			}
 		}
-		Update(time);
-		Draw(window);
+		Update(time, map);
+		Draw(window, map);
 		window.display();
 	}
 }
@@ -272,18 +276,7 @@ void Game::PlayLAN(sf::RenderWindow & window)
 /* Jako klient*/
 void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 {
-	sf::Clock clock;
-	sf::Time time;
-
 	sf::TcpSocket socket;
-	std::string data;
-	std::string response;
-	std::size_t received;
-	char buffer[2000];
-
-	
-	//for (int i = 0; i < ip.length(); i++)				// usuniecie '\r' z pierwszego miejsca ip jako pozostalosc po ostreamstring.str()
-	//	ip[i] = ip[i + 1];
 
 	if (socket.connect(ip, 53000) != sf::Socket::Done)
 	{
@@ -292,6 +285,15 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 	}
 	else
 	{
+		Map map;														// mapa gry
+		sf::Clock clock;
+		sf::Time time;
+
+		std::string data;
+		std::string response;
+		std::size_t received;
+		char buffer[2000];
+
 		if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
 		{
 			std::cout << "Load failed! " << std::endl;
@@ -345,7 +347,7 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 
 				if (playOrQuit)
 				{
-					PlayAgain();
+					PlayAgain(map);
 				}
 				else if (!playOrQuit)
 				{
@@ -407,8 +409,8 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 					endGameScreen.DisplayPlayer1Win(true, false);
 				}
 			}
-			Update(time);
-			Draw(window);
+			Update(time, map);
+			Draw(window, map);
 			window.display();
 		}
 	}
@@ -416,7 +418,7 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 
 //-----------------------------------------//
 
-void Game::PlayAgain()
+void Game::PlayAgain(Map & map)
 {
 	isOver = false;
 
