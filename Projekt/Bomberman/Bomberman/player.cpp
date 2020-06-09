@@ -261,8 +261,15 @@ void Player::GetDataForLAN(std::string & data)
 	data += toString(this->position.x) + ' ' + toString(this->position.y) + ' '
 		+ toString(this->playerState) + ' ' + toString(this->bombLocation.x) + ' ' 
 		+ toString(this->bombLocation.y) + ' ' + toString(this->IsKilled()) + '\0';
-	
 }
+
+//void Player::GetDataForLAN(std::string & data, bool isOver)
+//{
+//	data += toString(this->position.x) + ' ' + toString(this->position.y) + ' '
+//		+ toString(this->playerState) + ' ' + toString(this->bombLocation.x) + ' '
+//		+ toString(this->bombLocation.y) + ' ' + toString(this->IsKilled()) + ' '
+//		+ toString() '\0';
+//}
 
 void Player::SetMovingSate(bool direction)
 {

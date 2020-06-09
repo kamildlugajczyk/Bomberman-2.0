@@ -9,6 +9,9 @@
 #include "bomb.hpp"
 #include "map.hpp"
 
+static bool isOtherPlayerKilled = false;
+static bool direction = 1;
+
 class Player : public GraphicObject
 {
 	sf::Vector2f velocity;										// predkosc gracza
@@ -17,8 +20,6 @@ class Player : public GraphicObject
 	std::string name;											// nazwa gracza
 	bool canGoUp, canGoDown, canGoLeft, canGoRight;				// wartosci informujace o mozliwosci poruszania sie w danym kierunku
 	float timeSinceBomb, bombCooldown;							// czas od postawienia ostatniej bomby | czas po ktorym mozna postawic kolejna bombe
-
-	// TODO - think about better way of bomb position 
 	sf::Vector2f bombLocation;
 
 public:
@@ -132,6 +133,8 @@ public:
 	void SetPositionForLAN(int x, int y);
 
 	void GetDataForLAN(std::string & data);
+
+	//void GetDataForLAN(std::string & data, bool isOver);
 
 	void SetMovingSate(bool direction);
 

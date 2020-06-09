@@ -58,8 +58,6 @@ void Textbox::LoadFont(const sf::Font & font)
 bool Textbox::isIPValid(std::string ip)
 {
 	std::regex checkRegex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$");
-	std::cout << "IP: " << ip;
-	std::cout << "\t " << std::regex_match(ip, checkRegex) << std::endl;
 	return std::regex_match(ip, checkRegex);
 }
 

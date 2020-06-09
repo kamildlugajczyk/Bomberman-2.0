@@ -52,4 +52,14 @@ public:
 	void PlayAgain(Map & map);
 
 	void ListenTCP(sf::TcpSocket & socket);
+
+	//dublowanie
+	template <typename T>
+	std::string toString(T i)
+	{
+		std::stringstream ss;
+		ss << i;
+
+		return ss.str();
+	}
 };

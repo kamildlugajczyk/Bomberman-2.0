@@ -136,15 +136,12 @@ void Game::Play(sf::RenderWindow & window)
 	}
 }
 
-//-------------------LAN-------------------//
 /* Jako serwer */
 void Game::PlayLAN(sf::RenderWindow & window)
 {
 	Map map;														// mapa gry
-
 	sf::Clock clock;
 	sf::Time time;
-
 
 	sf::TcpSocket socket;
 	std::string data;
@@ -198,17 +195,21 @@ void Game::PlayLAN(sf::RenderWindow & window)
 
 		if (isOver)
 		{
-			std::string playOrQuit;
+			int playOrQuit;
+
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 			{
-				playOrQuit = '1';
-				socket.send(playOrQuit.c_str(), playOrQuit.length() + 1);
+				playOrQuit = 1;
+				socket.send(toString(playOrQuit).c_str(), toString(playOrQuit).length() + 1);
 				PlayAgain(map);
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 			{
-				playOrQuit = '0';
-				socket.send(playOrQuit.c_str(), playOrQuit.length() + 1);
+				playOrQuit = 0;
+				socket.send(toString(playOrQuit).c_str(), toString(playOrQuit).length() + 1);
+
+				socket.disconnect();
+				isOver = false;
 				return;
 			}
 		}
@@ -218,9 +219,6 @@ void Game::PlayLAN(sf::RenderWindow & window)
 
 		if (!isOver)
 		{
-			bool isOtherPlayerKilled = false;
-			bool direction = 1;
-
 			data.clear();																//czyszcze string
 			memset(buffer, 0, sizeof buffer);											//czyszcze bufor
 			received = 0;																//czyszcze 
@@ -231,12 +229,15 @@ void Game::PlayLAN(sf::RenderWindow & window)
 			int bombX = -1;
 			int bombY = -1;
 
+			isOtherPlayerKilled = false;
+			direction = 1;
+
 			player1.MoveWSAD(time, map);
 			player1.GetDataForLAN(data);
 			socket.send(data.c_str(), data.length() + 1);							//wysylam moja pozycje
 			socket.receive(buffer, sizeof(buffer), received);						//odbieram pozycje przeciwnika
 
-			sscanf_s(buffer, "%d %d %d %d %d %d ", &positionX, &positionY, &direction, &bombX, &bombY, &isOtherPlayerKilled);
+			sscanf_s(buffer, "%d %d %d %d %d %d", &positionX, &positionY, &direction, &bombX, &bombY, &isOtherPlayerKilled);
 			player2.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
 			player2.SetMovingSate(direction);
 
@@ -292,7 +293,9 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 		std::string data;
 		std::string response;
 		std::size_t received;
+		std::size_t received2;
 		char buffer[2000];
+
 
 		if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
 		{
@@ -331,26 +334,26 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 			{
 				if (event.type == sf::Event::Closed)
 					window.close();
-
 			}
 
 			if (isOver)
 			{
-				data.clear();																//czyszcze string
-				memset(buffer, 0, sizeof buffer);											//czyszcze bufor
-				received = 0;
+				int playOrQuit = 0;
 
-				bool playOrQuit;
 				// Dodac czekanie jako osobny watek
 				socket.receive(buffer, sizeof(buffer), received);
-				sscanf_s(buffer, "%d ", &playOrQuit);
+
+				sscanf_s(buffer, "%d", &playOrQuit);										
+				memset(buffer, 0, sizeof buffer);											
+				received = 0;
 
 				if (playOrQuit)
 				{
 					PlayAgain(map);
 				}
-				else if (!playOrQuit)
+				else
 				{
+					socket.disconnect();
 					return;
 				}
 			}
@@ -360,9 +363,6 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 
 			if (!isOver)
 			{
-				bool isOtherPlayerKilled = false;
-				bool direction = 1;
-
 				data.clear();																//czyszcze string
 				memset(buffer, 0, sizeof buffer);											//czyszcze bufor
 				received = 0;																//czyszcze 
@@ -372,6 +372,9 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 
 				int positionX = 0;
 				int positionY = 0;
+
+				isOtherPlayerKilled = false;
+				direction = 1;
 
 				player2.MoveArrows(time, map);
 				player2.GetDataForLAN(data);
@@ -415,8 +418,6 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 		}
 	}
 }
-
-//-----------------------------------------//
 
 void Game::PlayAgain(Map & map)
 {

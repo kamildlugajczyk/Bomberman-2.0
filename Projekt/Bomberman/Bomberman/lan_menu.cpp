@@ -149,7 +149,6 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 					{
 					case 0:
 					{
-						//isHosting = true;
 						Game game{};
 						game.PlayLAN(window);				// as server
 						break;
@@ -165,14 +164,9 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 							else
 								break;
 						}
-						//if (ip[0] == '\r')
-						//	ip.erase(ip.begin());				// usuniecie '\r' z pierwszego miejsca ip jako pozostalosc po ostreamstring.str()
 
 						if (box.isIPValid(ip))
 						{
-							//isJoining = true;
-							//this->Draw(window);
-							//std::cout << "\n Joined \n";
 							Game game{};
 							game.PlayLAN(window, ip);		// as client
 						}
