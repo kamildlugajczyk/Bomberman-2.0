@@ -51,7 +51,9 @@ public:
 	obu graczy na false */
 	void PlayAgain(Map & map);
 
-	void ListenTCP(sf::TcpSocket & socket);
+	//void ListenTCP(sf::TcpSocket & socket);
+
+	void WaitForEsc(sf::RenderWindow & window);
 
 	//dublowanie
 	template <typename T>
