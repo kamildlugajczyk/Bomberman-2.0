@@ -5,7 +5,7 @@
 
 #include "game.hpp"
 
-#define OPTION_AMOUNT_MAIN 5
+#define OPTION_AMOUNT_MAIN 3
 #define FONT_SIZE 35
 #define X_POS 350
 #define Y_POS_BASE 250

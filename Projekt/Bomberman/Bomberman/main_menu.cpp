@@ -34,17 +34,9 @@ void MainMenu::Draw(sf::RenderWindow & window)
 	menuOptions[1].setPosition(X_POS, Y_POS_BASE + 50);
 	menuOptions[1].setCharacterSize(FONT_SIZE);
 
-	menuOptions[2].setString("Statistics");
-	menuOptions[2].setPosition(X_POS, Y_POS_BASE + 100);
+	menuOptions[2].setString("Exit");
+	menuOptions[2].setPosition(X_POS, Y_POS_BASE + 150);
 	menuOptions[2].setCharacterSize(FONT_SIZE);
-
-	menuOptions[3].setString("Map Select");
-	menuOptions[3].setPosition(X_POS, Y_POS_BASE + 150);
-	menuOptions[3].setCharacterSize(FONT_SIZE);
-
-	menuOptions[4].setString("Exit");
-	menuOptions[4].setPosition(X_POS, Y_POS_BASE + 200);
-	menuOptions[4].setCharacterSize(FONT_SIZE);
 
 	indicator.setString(">");
 	indicator.setCharacterSize(FONT_SIZE);
@@ -118,16 +110,6 @@ void MainMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 					break;
 				}
 				case 2:
-				{
-					//std::cout << "Wejdz do res/stats/statistics.txt\n";
-					break;
-				}
-				case 3:
-				{
-					//std::cout << "Jest tylko jedna mapa\n";
-					break;
-				}
-				case 4:
 					window.close();
 					break;
 

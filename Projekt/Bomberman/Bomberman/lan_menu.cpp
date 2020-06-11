@@ -24,7 +24,7 @@ void LanMenu::Draw(sf::RenderWindow & window)
 		this->LoadFont(font);
 
 	logo.setString("LAN");
-	logo.setPosition(280, 100);
+	logo.setPosition(370, 100);
 	logo.setCharacterSize(80);
 
 	menuOptions[0].setString("Host game");
@@ -164,7 +164,6 @@ void LanMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 							else
 								break;
 						}
-
 						if (box.isIPValid(ip))
 						{
 							Game game{};
