@@ -9,6 +9,16 @@
 #include "map.hpp"
 #include "enum.hpp"
 
+void Player::LoadTexture(std::string path)
+{
+	if (!this->texture.loadFromFile(path))
+	{
+		throw std::runtime_error("Can't open the file: " + path);
+	}
+
+	sprite.setTexture(texture);
+}
+
 Player::Player(std::string arg_name)
 	: bombCooldown(2.f), defaultVelocity(200.f, 200.f), playerState(movingRight), name(arg_name), bombPlaced(0)
 {

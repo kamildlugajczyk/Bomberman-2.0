@@ -12,6 +12,7 @@
 
 class MainMenu
 {
+	sf::Font font;
 	sf::Text menuOptions[OPTION_AMOUNT_MAIN];
 	sf::Text logo;
 	sf::Text indicator;
@@ -32,4 +33,6 @@ public:
 	int GetPressedItem() { return selectedItemIndex; }
 
 	void ShowMenu(sf::RenderWindow & window, bool & selectedLan);
+
+	void LoadFont();
 };

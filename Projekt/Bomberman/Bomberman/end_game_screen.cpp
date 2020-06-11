@@ -37,8 +37,13 @@ void EndGameScreen::DisplayPlayer1Win(bool player1win, bool host)
 	}
 }
 
-void EndGameScreen::LoadFont(const sf::Font & font)
+void EndGameScreen::LoadFont()
 {
+	if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
+	{
+		throw std::runtime_error("Can't open the file: SFPixelate.ttf");
+	}
+		
 	mainText.setFont(font);
 	subText1.setFont(font);
 	subText2.setFont(font);

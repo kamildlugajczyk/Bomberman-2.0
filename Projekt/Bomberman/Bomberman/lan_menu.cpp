@@ -50,13 +50,9 @@ void LanMenu::Draw(sf::RenderWindow & window)
 	warning.setPosition(X_POS - 100, Y_POS_BASE + 300);
 	warning.setCharacterSize(FONT_SIZE);
 
-	/*joining.setString("Joining... Press ESC to cancel.");
-	joining.setPosition(X_POS - 180, Y_POS_BASE + 300);
-	joining.setCharacterSize(FONT_SIZE);
-
-	hosting.setString("Hosting... Press ESC to cancel");
-	hosting.setPosition(X_POS - 180, Y_POS_BASE + 300);
-	hosting.setCharacterSize(FONT_SIZE);*/
+	tip.setString("Tip: to stop hosting game press ESC");
+	tip.setPosition(X_POS - 135, Y_POS_BASE + 350);
+	tip.setCharacterSize(FONT_SIZE - 10);
 
 	window.draw(logo);
 	for (int i = 0; i < OPTION_AMOUNT_LAN; i++)
@@ -65,14 +61,11 @@ void LanMenu::Draw(sf::RenderWindow & window)
 	}
 	window.draw(indicator);
 	box.Draw(window);
+	window.draw(tip);
+
 
 	if (wrongIP)
 		window.draw(warning);
-	//else if(isJoining)
-	//	window.draw(joining);
-	//else if(isHosting)
-	//	window.draw(hosting);
-
 }
 
 void LanMenu::LoadFont(const sf::Font & font)
@@ -84,8 +77,7 @@ void LanMenu::LoadFont(const sf::Font & font)
 	}
 	indicator.setFont(font);
 	warning.setFont(font);
-	//joining.setFont(font);
-	//hosting.setFont(font);
+	tip.setFont(font);
 }
 
 void LanMenu::MoveUp(sf::RenderWindow & window)

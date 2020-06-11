@@ -1,11 +1,10 @@
 #include <iostream>
 #include <stdio.h>
-
 #include <thread>
 #include <chrono>
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
+#include <windows.h>
 
 #include "game.hpp"
 #include "main_menu.hpp"
@@ -27,6 +26,18 @@ int main()
 	
 	MainMenu menu{};
 	LanMenu lanMenu{};
+
+	try
+	{
+		menu.LoadFont();
+	}
+	catch (std::runtime_error & exception)
+	{
+		std::string message;
+		message = exception.what() + (std::string)". Program will abort.";
+		MessageBoxA(NULL, (LPCSTR)message.c_str(), "Exception", MB_ICONSTOP);
+		return 0;
+	}
 
 	while (window.isOpen())
 	{

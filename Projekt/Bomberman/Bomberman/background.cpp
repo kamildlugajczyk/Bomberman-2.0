@@ -10,8 +10,7 @@ void Background::SetUp()
 {
 	if (!backgroundTexture.loadFromFile("res/img/background.png"))
 	{
-		std::cout << "Load failed! " << std::endl;
-		getchar();
+		throw std::runtime_error("Can't open the file: background.png");
 	}
 
 	LoadTexture(backgroundTexture);

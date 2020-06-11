@@ -11,8 +11,7 @@ void SolidWall::SetUp()
 {
 	if (!solid_texture.loadFromFile("res/img/SolidBlock.png"))
 	{
-		std::cout << "Load failed! " << std::endl;
-		getchar();
+		throw std::runtime_error("Can't open the file: SolidBlock.png");
 	}
 
 	LoadTexture(solid_texture);

@@ -27,8 +27,7 @@ void Bomb::SetUp()
 {
 	if (!bombTexture.loadFromFile("res/img/bomb.png"))
 	{
-		std::cout << "Load failed! " << std::endl;
-		getchar();
+		throw std::runtime_error("Can't open the file: bomb.png");
 	}
 	LoadTexture(bombTexture);
 }

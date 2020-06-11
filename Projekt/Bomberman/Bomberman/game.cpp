@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <thread>
+#include <exception>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
+#include <windows.h>
 
 #include "game.hpp"
 #include "player.hpp"
@@ -48,35 +50,21 @@ void Game::Play(sf::RenderWindow & window)
 	sf::Clock clock;
 	sf::Time time;
 
-	if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
+	try
 	{
-		std::cout << "Load failed! " << std::endl;
-		getchar();
+		player1.LoadTexture("res/img/character1.png");
+		player2.LoadTexture("res/img/character2.png");
+		endGameScreen.LoadFont();
+		map.LoadFromFile();
+		map.LoadTiles();
+	}
+	catch (std::runtime_error & exception)
+	{
+		std::string message;
+		message = exception.what() + (std::string)". Program will abort.";
+		MessageBoxA(NULL, (LPCSTR)message.c_str(), "Exception", MB_ICONSTOP);
 		return;
 	}
-	else
-		endGameScreen.LoadFont(font);
-
-	////-------------- gracz 1 ---------------------------
-	if (!player1.texture_p1.loadFromFile("res/img/character1.png"))
-	{
-		std::cout << "Load failed! " << std::endl;
-		getchar();
-		return;
-	}
-	//-------------- gracz 2 ---------------------------
-	if (!player2.texture_p2.loadFromFile("res/img/character2.png"))
-	{
-		std::cout << "Load failed! " << std::endl;
-		getchar();
-		return;
-	}
-	//--------------------------------------------------
-
-	player1.LoadTexture(player1.texture_p1);
-	player2.LoadTexture(player2.texture_p2);
-	map.LoadFromFile();
-	map.LoadTiles();
 
 	while (window.isOpen())
 	{
@@ -178,35 +166,21 @@ void Game::PlayLAN(sf::RenderWindow & window)
 		std::size_t received;
 		char buffer[2000];
 
-		if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
+		try
 		{
-			std::cout << "Load failed! " << std::endl;
-			getchar();
+			player1.LoadTexture("res/img/character1.png");
+			player2.LoadTexture("res/img/character2.png");
+			endGameScreen.LoadFont();
+			map.LoadFromFile();
+			map.LoadTiles();
+		}
+		catch (std::runtime_error & exception)
+		{
+			std::string message;
+			message = exception.what() + (std::string)". Program will abort.";
+			MessageBoxA(NULL, (LPCSTR)message.c_str(), "Exception", MB_ICONSTOP);
 			return;
 		}
-		else
-			endGameScreen.LoadFont(font);
-
-		////-------------- gracz 1 ---------------------------
-		if (!player1.texture_p1.loadFromFile("res/img/character1.png"))
-		{
-			std::cout << "Load failed! " << std::endl;
-			getchar();
-			return;
-		}
-		//-------------- gracz 2 ---------------------------
-		if (!player2.texture_p2.loadFromFile("res/img/character2.png"))
-		{
-			std::cout << "Load failed! " << std::endl;
-			getchar();
-			return;
-		}
-		//--------------------------------------------------
-
-		player1.LoadTexture(player1.texture_p1);
-		player2.LoadTexture(player2.texture_p2);
-		map.LoadFromFile();
-		map.LoadTiles();
 
 		while (window.isOpen())
 		{
@@ -306,7 +280,6 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 
 	if (socket.connect(ip, 53000) != sf::Socket::Done)
 	{
-		// exception 
 		return;
 	}
 	else
@@ -320,36 +293,22 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 		std::size_t received;
 		char buffer[2000];
 
-
-		if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
+		try
 		{
-			std::cout << "Load failed! " << std::endl;
-			getchar();
+			player1.LoadTexture("res/img/character1.png");
+			player2.LoadTexture("res/img/character2.png");
+			endGameScreen.LoadFont();
+			map.LoadFromFile();
+			map.LoadTiles();
+		}
+		catch (std::runtime_error & exception)
+		{
+			std::string message;
+			message = exception.what() + (std::string)". Program will abort.";
+			MessageBoxA(NULL, (LPCSTR)message.c_str(), "Exception", MB_ICONSTOP);
 			return;
 		}
-		else
-			endGameScreen.LoadFont(font);
-
-		////-------------- gracz 1 ---------------------------
-		if (!player1.texture_p1.loadFromFile("res/img/character1.png"))
-		{
-			std::cout << "Load failed! " << std::endl;
-			getchar();
-			return;
-		}
-		//-------------- gracz 2 ---------------------------
-		if (!player2.texture_p2.loadFromFile("res/img/character2.png"))
-		{
-			std::cout << "Load failed! " << std::endl;
-			getchar();
-			return;
-		}
-		//--------------------------------------------------
-
-		player1.LoadTexture(player1.texture_p1);
-		player2.LoadTexture(player2.texture_p2);
-		map.LoadFromFile();
-		map.LoadTiles();
+		
 
 		while (window.isOpen())
 		{
@@ -363,9 +322,8 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 			if (isOver)
 			{
 				int playOrQuit = 0;
-
-				// Dodac czekanie jako osobny watek
 				bool decision = false;
+
 				socket.setBlocking(false);
 
 				while (!decision)

@@ -26,8 +26,7 @@ void Explosion::SetUp()
 {
 	if (!explosionTexture.loadFromFile("res/img/flame.png"))
 	{
-		std::cout << "Load failed! " << std::endl;
-		getchar();
+		throw std::runtime_error("Can't open the file: flame.png");
 	}
 
 	LoadTexture(explosionTexture);

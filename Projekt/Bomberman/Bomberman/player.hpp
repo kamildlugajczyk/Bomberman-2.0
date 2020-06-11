@@ -24,10 +24,14 @@ class Player : public GraphicObject
 	sf::Vector2f bombLocation;
 
 public:
-	sf::Texture texture_p1, texture_p2;							// tekstrura gracza 1 | tekstura gracza 2
+	//sf::Texture texture_p1, texture_p2;							// tekstrura gracza 1 | tekstura gracza 2
+	sf::Texture texture;							// tekstrura gracza 1 | tekstura gracza 2
 	int bombPlaced;												// licznik postawioncyh bomb podczas calej rozgrywki
 	bool killed = false;										// zmienna inforumjaca czy gracz zginal
 	
+
+	void LoadTexture(std::string path);
+
 	/* Konstruktor jedno argumentowy ustawiajacy nazwe gracza oraz domyslna 
 	wartosc bombCoolDown, defaultVelocity, playerState, bombPlaced, wysokosc
 	i szerokosc obszaru kolizyjnego oraz ustawiajacy sprite.Origin() czyli

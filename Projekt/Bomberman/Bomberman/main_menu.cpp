@@ -12,16 +12,6 @@ MainMenu::MainMenu()
 
 void MainMenu::Draw(sf::RenderWindow & window)
 {
-	sf::Font font;
-	if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
-	{
-		std::cout << "Load failed! " << std::endl;
-		getchar();
-		return;
-	}
-	else
-		this->LoadFont(font);
-
 	logo.setString("BOMBERMAN");
 	logo.setPosition(220, 100);
 	logo.setCharacterSize(80);
@@ -112,15 +102,23 @@ void MainMenu::ShowMenu(sf::RenderWindow & window, bool & selectedLan)
 				case 2:
 					window.close();
 					break;
-
 				}
 				break;
 			}
-
 			break;
 		case sf::Event::Closed:
 			window.close();
 			break;
 		}
 	}
+}
+
+void MainMenu::LoadFont()
+{
+	if (!font.loadFromFile("res/fonts/SFPixelate.ttf"))
+	{
+		throw std::runtime_error("Can't open the file: SFPixelate.ttf");
+	}
+	else
+		this->LoadFont(font);
 }

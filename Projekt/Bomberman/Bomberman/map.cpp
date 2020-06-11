@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <exception>
 #include <SFML/Graphics.hpp>
 
 #include "map.hpp"
@@ -26,6 +27,14 @@ Map::~Map()
 
 void Map::LoadTiles()
 {
+	Bomb * checkBomb = new Bomb{};				// testowe stworzenie bomby w celu
+	checkBomb->SetUp();							// sprawdzenia czy tekstura znajduje
+	delete checkBomb;							// sie w plikach 
+
+	Explosion * checkExplosion = new Explosion{};	// testowe stworzenie eksplozji w celu
+	checkExplosion->SetUp();						// sprawdzenia czy tekstura znajduje
+	delete checkExplosion;							// sie w plikach 
+
 	for (int w = 0; w < 11; w++)
 	{
 		for (int k = 0; k < 15; k++)
@@ -150,5 +159,10 @@ void Map::LoadFromFile()
 			{
 				inputFile >> gameMap[w][k];
 			}
+		inputFile.close();
+	}
+	else
+	{
+		throw std::runtime_error("Can't open the file: map.txt");
 	}
 }

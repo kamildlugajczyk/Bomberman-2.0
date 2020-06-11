@@ -5,6 +5,7 @@
 
 class EndGameScreen
 {
+	sf::Font font;										// czcionka
 	sf::Text mainText;									// tekst glowny wyswietlany u gory
 	sf::Text subText1;									// pierwszy tekst dodatkowy wyswietlany pod mainText
 	sf::Text subText2;									// drugi tekst dodatkowy wyswietlany pod mainText
@@ -21,5 +22,5 @@ public:
 
 	/* Metoda wczytujaca czcionke podana w parametrze
 	@param font wybrana czcionka */
-	void LoadFont(const sf::Font & font);
+	void LoadFont();
 };
