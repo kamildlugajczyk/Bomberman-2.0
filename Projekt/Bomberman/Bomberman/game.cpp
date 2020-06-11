@@ -125,7 +125,6 @@ void Game::Play(sf::RenderWindow & window)
 	}
 }
 
-/* Jako serwer */
 void Game::PlayLAN(sf::RenderWindow & window)
 {
 	sf::TcpSocket socket;
@@ -239,7 +238,6 @@ void Game::PlayLAN(sf::RenderWindow & window)
 				player2.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
 				player2.SetMovingSate(direction);
 
-				// tymczasowe plantowanie bomby
 				if (bombX != -1 && bombY != -1)
 				{
 					Bomb * bomb = new Bomb{};
@@ -273,7 +271,6 @@ void Game::PlayLAN(sf::RenderWindow & window)
 	}
 }
 
-/* Jako klient*/
 void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 {
 	sf::TcpSocket socket;
@@ -322,15 +319,8 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 			if (isOver)
 			{
 				int playOrQuit = 0;
-				bool decision = false;
 
-				socket.setBlocking(false);
-
-				while (!decision)
-				{
-					if (socket.receive(buffer, sizeof(buffer), received) == sf::Socket::Done)
-						decision = true;
-				}
+				socket.receive(buffer, sizeof(buffer), received);
 
 				sscanf_s(buffer, "%d", &playOrQuit);										
 				memset(buffer, 0, sizeof buffer);											
@@ -374,7 +364,6 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 				player1.SetPositionForLAN(positionX, positionY);						//wczytuje pozycje przeciwnika
 				player1.SetMovingSate(direction);
 
-				// tymczasowe plantowanie bomby
 				if (bombX != -1 && bombY != -1)
 				{
 					Bomb * bomb = new Bomb{};
