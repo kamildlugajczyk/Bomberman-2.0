@@ -51,9 +51,9 @@ public:
 	obu graczy na false */
 	void PlayAgain(Map & map);
 
-	//void ListenTCP(sf::TcpSocket & socket);
+	static void ListenTCP(sf::TcpSocket & socket);
 
-	void WaitForEsc(sf::RenderWindow & window);
+	//void WaitForEsc(sf::RenderWindow & window);
 
 	//dublowanie
 	template <typename T>
@@ -65,3 +65,5 @@ public:
 		return ss.str();
 	}
 };
+
+//void ListenTCP(sf::TcpSocket & socket);

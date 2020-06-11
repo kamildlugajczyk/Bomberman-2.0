@@ -141,26 +141,32 @@ void Game::Play(sf::RenderWindow & window)
 void Game::PlayLAN(sf::RenderWindow & window)
 {
 	sf::TcpSocket socket;
-	std::thread listenerTCP(&Game::WaitForEsc, window);
-	listenerTCP.join();
+	pressedEsc = false;
+	gotConnection = false;
+
+	std::thread listenerTCP(&Game::ListenTCP, std::ref(socket));
 	
-	//listenerTCP = std::thread([&] { WaitForEsc(window); });
-
-	sf::TcpListener listener;
-	listener.listen(53000);
-	listener.setBlocking(false);
-
-	while (!pressedEsc && !gotConnection)
+	while (!gotConnection && !pressedEsc)
 	{
-		if (listener.accept(socket) == sf::Socket::Done)
+		sf::Event event;
+		while (window.pollEvent(event))
 		{
-			gotConnection = true;
+			switch (event.type)
+			{
+			case sf::Event::KeyPressed:
+				switch (event.key.code)
+				{
+				case sf::Keyboard::Escape:
+					pressedEsc = true;
+					break;
+				}
+			}
 		}
 	}
 
 	listenerTCP.join();
 
-	if (!gotConnection)
+	if (pressedEsc)
 		return;
 	else
 	{
@@ -456,24 +462,17 @@ void Game::PlayAgain(Map & map)
 	once = true;
 }
 
-void Game::WaitForEsc(sf::RenderWindow & window)
+void Game::ListenTCP(sf::TcpSocket & socket)
 {
-	while (!gotConnection)
+	sf::TcpListener listener;
+	listener.listen(53000);
+	listener.setBlocking(false);
+
+	while (!gotConnection && !pressedEsc)
 	{
-		sf::Event event;
-		while (window.pollEvent(event))
+		if (listener.accept(socket) == sf::Socket::Done)
 		{
-			switch (event.type)
-			{
-			case sf::Event::KeyPressed:
-				switch (event.key.code)
-				{
-				case sf::Keyboard::Escape:
-					pressedEsc = true;
-					std::cout << "Wcisnieto escape ";
-					break;
-				}
-			}
+			gotConnection = true;
 		}
 	}
 }
