@@ -156,6 +156,7 @@
     <ClInclude Include="main_menu.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="solid_wall.hpp" />
+    <ClInclude Include="templates.hpp" />
     <ClInclude Include="textbox.hpp" />
     <ClInclude Include="wall.hpp" />
   </ItemGroup>

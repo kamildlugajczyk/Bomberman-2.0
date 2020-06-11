@@ -8,6 +8,7 @@
 #include "enum.hpp"
 #include "bomb.hpp"
 #include "map.hpp"
+#include "templates.hpp"
 
 static bool isOtherPlayerKilled = false;
 static bool direction = 1;
@@ -137,13 +138,4 @@ public:
 	//void GetDataForLAN(std::string & data, bool isOver);
 
 	void SetMovingSate(bool direction);
-
-	template <typename T>
-	std::string toString(T i) 
-	{
-		std::stringstream ss;
-		ss << i;
-
-		return ss.str();
-	}
 };

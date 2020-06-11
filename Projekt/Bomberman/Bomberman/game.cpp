@@ -365,7 +365,14 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 				int playOrQuit = 0;
 
 				// Dodac czekanie jako osobny watek
-				socket.receive(buffer, sizeof(buffer), received);
+				bool decision = false;
+				socket.setBlocking(false);
+
+				while (!decision)
+				{
+					if (socket.receive(buffer, sizeof(buffer), received) == sf::Socket::Done)
+						decision = true;
+				}
 
 				sscanf_s(buffer, "%d", &playOrQuit);										
 				memset(buffer, 0, sizeof buffer);											
@@ -400,7 +407,7 @@ void Game::PlayLAN(sf::RenderWindow & window, std::string ip)
 				isOtherPlayerKilled = false;
 				direction = 1;
 
-				player2.MoveArrows(time, map);
+				player2.MoveWSAD(time, map);
 				player2.GetDataForLAN(data);
 				socket.send(data.c_str(), data.length() + 1);							//wysylam moja pozycje
 				socket.receive(buffer, sizeof(buffer), received);						//odbieram pozycje przeciwnika

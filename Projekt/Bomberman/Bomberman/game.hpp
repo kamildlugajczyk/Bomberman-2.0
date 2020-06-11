@@ -8,6 +8,7 @@
 #include "player.hpp"
 #include "map.hpp"
 #include "end_game_screen.hpp"
+#include "templates.hpp"
 
 class Game
 {
@@ -52,18 +53,4 @@ public:
 	void PlayAgain(Map & map);
 
 	static void ListenTCP(sf::TcpSocket & socket);
-
-	//void WaitForEsc(sf::RenderWindow & window);
-
-	//dublowanie
-	template <typename T>
-	std::string toString(T i)
-	{
-		std::stringstream ss;
-		ss << i;
-
-		return ss.str();
-	}
 };
-
-//void ListenTCP(sf::TcpSocket & socket);
