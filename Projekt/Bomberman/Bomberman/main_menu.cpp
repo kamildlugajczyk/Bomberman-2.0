@@ -39,16 +39,6 @@ void MainMenu::Draw(sf::RenderWindow & window)
 	window.draw(indicator);
 }
 
-void MainMenu::LoadFont(const sf::Font & font)
-{
-	logo.setFont(font);
-	for (int i = 0; i < OPTION_AMOUNT_MAIN + 2; i++)
-	{
-		menuOptions[i].setFont(font);
-	}
-	indicator.setFont(font);
-}
-
 void MainMenu::MoveUp(sf::RenderWindow & window)
 {
 	if (selectedItemIndex - 1 >= 0)
@@ -119,6 +109,11 @@ void MainMenu::LoadFont()
 	{
 		throw std::runtime_error("Can't open the file: SFPixelate.ttf");
 	}
-	else
-		this->LoadFont(font);
+
+	logo.setFont(font);
+	for (int i = 0; i < OPTION_AMOUNT_MAIN + 2; i++)
+	{
+		menuOptions[i].setFont(font);
+	}
+	indicator.setFont(font);
 }

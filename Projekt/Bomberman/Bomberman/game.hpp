@@ -34,14 +34,14 @@ public:
 	widoku konca gry */
 	void Draw(sf::RenderWindow & window, Map & map);
 
-	/* Glowna metoda zawieraja cala logike gry w ktorej wywolywane
-	sa kolejne metody, zawiera glowna petle gry */
+	/* Glowna metoda zawieraja cala logike gry lokalnej w ktorej 
+	wywolywane sa kolejne metody, zawiera glowna petle gry */
 	void Play(sf::RenderWindow & window);
 
-	/* Jako serwer */
+	/* Metoda gry sieciowej jako host */
 	void PlayLAN(sf::RenderWindow & window);
 
-	/* Jako klient*/
+	/* Metoda gry sieciowej jako kklient */
 	void PlayLAN(sf::RenderWindow & window, std::string ip);
 
 	/* Metoda przywracajaca stan gry do warunkow poczatkowych
@@ -50,5 +50,8 @@ public:
 	obu graczy na false */
 	void PlayAgain(Map & map);
 
+	/* Metoda wywo³ywana w osobnym watku majaca na celu
+	nasluchiwanie portu 53000 az do osiagniecia polaczenia
+	lub wcisniecia ESC przez uzytkownika (w innym watku) */
 	static void ListenTCP(sf::TcpSocket & socket);
 };

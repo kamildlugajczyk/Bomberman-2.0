@@ -28,13 +28,15 @@ public:
 	/* Metoda ustawiajaca zmienna destroyed na true */
 	void Destroy() { destroyed = true; };
 
-	/* Metoda zwracajaca zmienna destroyed*/
+	/* Metoda zwracajaca zmienna destroyed */
 	bool IsDestroyed() { return destroyed; };
 
-	/* Metoda zwracajaca zmienna exploded*/
+	/* Metoda zwracajaca zmienna exploded */
 	bool IsExploded() { return exploded; };
 
+	/* Metoda ustawiajaca zmienna collideNow na true */
 	void Collide() { collideNow = true; };
 
+	/* Metoda zwracajaca zmienna collideNow */
 	bool ShouldCollide() { return collideNow;  }
 };

@@ -24,12 +24,11 @@ class Player : public GraphicObject
 	sf::Vector2f bombLocation;
 
 public:
-	//sf::Texture texture_p1, texture_p2;							// tekstrura gracza 1 | tekstura gracza 2
-	sf::Texture texture;							// tekstrura gracza 1 | tekstura gracza 2
+	sf::Texture texture;										// tekstrura gracza 
 	int bombPlaced;												// licznik postawioncyh bomb podczas calej rozgrywki
 	bool killed = false;										// zmienna inforumjaca czy gracz zginal
 	
-
+	/* Metoda wczytujaca teksture gracza */
 	void LoadTexture(std::string path);
 
 	/* Konstruktor jedno argumentowy ustawiajacy nazwe gracza oraz domyslna 
@@ -135,11 +134,18 @@ public:
 				 wypisywac daty i godziny */
 	void SaveToFile(bool param);
 
+	/* Metoda ustawiajaca na planszy otrzymana przez protokol TCP/IP
+	pozycje przeciwnika */
 	void SetPositionForLAN(int x, int y);
 
+	/* Metoda przygotowywujaca ramke danych do przeslania do przeciwnika
+	Te dane to: pozycja gracza na osi X, pozycja gracza na osi Y, zmienna
+	czy gracz porusza sie w lewo czy w prawo, pozycja bomby na osi X,
+	pozycja bomby na osi Y (gdy bomba nie zostala postawiona wartosci przysylane
+	to -1 oraz -1), zmienna informujaca czy przeciwnik zostal zabity */
 	void GetDataForLAN(std::string & data);
 
-	//void GetDataForLAN(std::string & data, bool isOver);
-
+	/* Metoda ustawiajaca odpowieni stan poruszania sie gracza ze wzgledu
+	na informacje przeslana przez siec */
 	void SetMovingSate(bool direction);
 };

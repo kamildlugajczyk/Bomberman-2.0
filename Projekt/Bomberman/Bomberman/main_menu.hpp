@@ -20,19 +20,27 @@ class MainMenu
 	int selectedItemIndex;
 public:
 
+	/* Konstruktor bezargumentowy menu gry */
 	MainMenu();
 
+	/* Metoda rysujaca wszystkie elementy menu */
 	void Draw(sf::RenderWindow & window);
 
-	void LoadFont(const sf::Font & font);
-
+	/* Metoda odpowiedzialna za poruszanie sie po menu w gore
+	(po wcisnieciu strzalki w gore) */
 	void MoveUp(sf::RenderWindow & window);
 
+	/* Metoda odpowiedzialna za poruszanie sie po menu w dol
+	(po wcisnieciu strzalki w dol) */
 	void MoveDown(sf::RenderWindow & window);
 
+	/* Metoda zwracajaca selectedItemIndex, czyli wybrana opcje menu */
 	int GetPressedItem() { return selectedItemIndex; }
 
+	/* Metoda wyswietlajaca cale pod menu, zawiera mozliwosc wyoru
+	przez uzytkownika wybranej opcji */
 	void ShowMenu(sf::RenderWindow & window, bool & selectedLan);
 
+	/* Metoda odpowiedzialna na wczytanie czcionki uzywanej w menu */
 	void LoadFont();
 };

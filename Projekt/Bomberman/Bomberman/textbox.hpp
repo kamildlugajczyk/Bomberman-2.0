@@ -12,26 +12,34 @@
 
 class Textbox
 {
-
-
 public:
-	sf::Text textbox;
+	sf::Text textbox;				
 	std::ostringstream text;
 
 	bool isSelected = false;
 	int limit = 0;
 
-	void deleteLastChar();
-
-	void inputLogic(int charTyped);
-	//----------------------
+	/* Konstruktor bezargumentowy pola tesktowego */
 	Textbox();
 
+	/* Metoda usuwajaca ostatni wpisany znak w pole tekstowe */
+	void deleteLastChar();
+
+	/* Metoda odpowiedzialna za mechanike wpisywania adresu IP 
+	w pole tekstowe. */
+	void inputLogic(int charTyped);
+
+	/* Metoda odpowiedzialna dopisane w ostatnie pole znaku '_'
+	jesli uzytkownik chce wpisac adres IP */
 	void SetSelected(bool sel);
 
+	/* Metoda rysujaca pole tekstowe */
 	void Draw(sf::RenderWindow &window);
 
+	/* Metoda wczytujaca czcionke do uzywana w polu tekstowym */
 	void LoadFont(const sf::Font & font);
 
+	/* Metoda dokonujaca sprawdzenia poprawnosci wpisanego 
+	adresu IP poprzez uzycie wyrazen regularnych (RegEx) */
 	bool isIPValid(std::string ip);
 };
